@@ -1,4 +1,4 @@
-from pipe import PipeFirst, PipeSecond
+from .pipe import PipeFirst, PipeSecond
 import funcy
 
 __all__ = []
