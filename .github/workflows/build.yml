@@ -40,7 +40,7 @@ jobs:
 
       - name: Make sure it runs
         run: |
-          poetry run clean-workspace --help
+          poetry run pytest
 
       - name: Conventional Changelog Action
         id: changelog
