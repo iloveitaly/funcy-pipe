@@ -1,6 +1,6 @@
 # Funcy with pipeline-based operators
 
-If Funcy and Pipe had a baby. Deal with data transformation in python in a sane way.
+If [Funcy](https://github.com/Suor/funcy) and [Pipe](https://github.com/JulienPalard/Pipe) had a baby. Deal with data transformation in python in a sane way.
 
 ## Examples
 
