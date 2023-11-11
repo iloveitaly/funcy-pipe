@@ -1,3 +1,12 @@
+# [0.4.0](https://github.com/iloveitaly/funcy-pipe/compare/v0.3.0...v0.4.0) (2023-11-11)
+
+
+### Features
+
+* exactly_one and reduce extras ([f0d663e](https://github.com/iloveitaly/funcy-pipe/commit/f0d663ed973cc2c95e452aa2385a478a2816acfb))
+
+
+
 # [0.3.0](https://github.com/iloveitaly/funcy-pipe/compare/v0.2.0...v0.3.0) (2023-11-11)
 
 
