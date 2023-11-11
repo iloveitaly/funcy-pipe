@@ -1,6 +1,6 @@
 # Funcy with pipeline-based operators
 
-If Funcy and Pipe had a baby.
+If Funcy and Pipe had a baby. Deal with data transformation in python in a sane way.
 
 ## Examples
 
@@ -12,23 +12,34 @@ entities_from_sql_alchemy
   | f.to_list
 ```
 
+## Extras
+
+* to_list
+* log
+* bp
+* sort
+
 ### Module Alias
 
-Create a module alias for `funcy-pipe` to easily import in your project:
+Create a module alias for `funcy-pipe` to make things clean (`import *` always irks me):
 
 ```python
-# f.py
+# fp.py
 from funcy_pipe import *
+
+# code py
+import fp
 ```
 
 # Inspiration
 
+* Elixir's pipe operator. `array |> map(fn) |> filter(fn)`
+* Ruby's enumerable library. `array.map(&:fn).filter(&:fn)`
 * https://pypi.org/project/funcy-chain
 * https://github.com/JulienPalard/Pipe
-* Ruby's enumerable library
-* Elixir's pipe operator
 
 # TODO
 
 - [ ] tests
 - [ ] relax python version
+- [ ] fix typing threading
