@@ -1,3 +1,4 @@
+import functools
 from .pipe import PipeFirst, PipeSecond
 import funcy
 
@@ -55,6 +56,21 @@ def sort(iterable, key=None, reverse=False):
         key = funcy.rpartial(funcy.get_in, [key])
 
     return sorted(iterable, key=key, reverse=reverse)
+
+
+# TODO there's `first` but it doesn't throw an exception if there's more than one
+@export
+def exactly_one(comprehension):
+    if len(comprehension) != 1:
+        raise Exception("Expected to find exactly one matching item")
+
+    return comprehension[0]
+
+
+@PipeFirst
+@export
+def reduce(iterable, func, initial):
+    return functools.reduce(func, iterable, initial)
 
 
 apply_decorator_and_export(funcy, PipeSecond)

@@ -18,6 +18,8 @@ entities_from_sql_alchemy
 * log
 * bp
 * sort
+* exactly_one
+* reduce
 
 ### Module Alias
 
