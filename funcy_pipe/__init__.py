@@ -7,6 +7,11 @@ __all__ = []
 PIPE_FIRST_EXCEPTIONS = ["omit"]
 
 
+def export(func):
+    globals()["__all__"].append(func.__name__)
+    return func
+
+
 def apply_decorator_and_export(module, decorator):
     for name in dir(module):
         obj = getattr(module, name)
@@ -21,16 +26,35 @@ def apply_decorator_and_export(module, decorator):
 
 
 @PipeFirst
+@export
 def to_list(iterable):
     return list(iterable)
 
 
-# pipe-map: for use with `lmap` and similar
-@PipeSecond
-def pmap(func, iterable):
-    return iterable | func
+@PipeFirst
+@export
+def log(iterable):
+    # TODO maybe use pretty print
+    print(iterable)
+    return iterable
 
 
-__all__.append("to_list")
+# breakpoint, avoid collision with built-in breakpoint
+@PipeFirst
+@export
+def bp(iterable):
+    breakpoint()
+    return iterable
+
+
+@PipeFirst
+@export
+def sort(iterable, key=None, reverse=False):
+    # if key is str, assume it is a dict key
+    if key is not None and type(key) is str:
+        key = funcy.rpartial(funcy.get_in, [key])
+
+    return sorted(iterable, key=key, reverse=reverse)
+
 
 apply_decorator_and_export(funcy, PipeSecond)

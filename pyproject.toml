@@ -7,7 +7,7 @@ keywords = ["functional-programming", "pipe", "funcy", "data-manipulation"]
 homepage = "https://github.com/iloveitaly/funcy-pipe"
 license = "MIT"
 readme = "README.md"
-packages = [{include = "funcy_pipe"}]
+packages = [{ include = "funcy_pipe" }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
