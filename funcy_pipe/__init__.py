@@ -1,4 +1,5 @@
 import functools
+from multiprocessing import Pipe
 from .pipe import PipeFirst, PipeSecond
 import funcy
 
@@ -14,16 +15,19 @@ def export(func):
 
 
 def apply_decorator_and_export(module, decorator):
+    decorated_functions = {}
     for name in dir(module):
-        obj = getattr(module, name)
-        if not callable(obj) or name.startswith("__"):
+        if name.startswith("__"):
             continue
+        obj = getattr(module, name)
+        if callable(obj):
+            decorated_functions[name] = (
+                PipeFirst(obj) if name in PIPE_FIRST_EXCEPTIONS else decorator(obj)
+            )
+    return decorated_functions
 
-        decorated_fn = (
-            PipeFirst(obj) if name in PIPE_FIRST_EXCEPTIONS else decorator(obj)
-        )
-        globals()[name] = decorated_fn
-        __all__.append(name)
+
+fp = apply_decorator_and_export(funcy, PipeSecond)
 
 
 @PipeFirst
@@ -73,4 +77,10 @@ def reduce(iterable, func, initial):
     return functools.reduce(func, iterable, initial)
 
 
-apply_decorator_and_export(funcy, PipeSecond)
+@PipeFirst
+@export
+def pmap(iterable, func):
+    """
+    >>> [1, 2, 3] | fp.pmap(fp.omit("key"))
+    """
+    return iterable | fp["map"](lambda x: x | func)
