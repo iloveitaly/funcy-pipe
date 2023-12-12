@@ -2,10 +2,14 @@
 
 If [Funcy](https://github.com/Suor/funcy) and [Pipe](https://github.com/JulienPalard/Pipe) had a baby. Deal with data transformation in python in a sane way.
 
+I love Ruby, but believe Python is the way of the future. As I worked more with Python, it was driving me nuts that the
+data transformation options were not chainable like Ruby + Elixir. This project fixes this pet peeve.
+
 ## Examples
 
 ```python
-import funcy_pipe as f
+import funcy_pipe as fp
+
 entities_from_sql_alchemy
   | fp.lmap(lambda r: r.to_dict())
   | fp.lmap(lambda r: r | fp.omit(["id", "created_at", "updated_at"]))
@@ -16,10 +20,34 @@ Or, you can be more fancy and use [whatever](https://github.com/Suor/whatever) a
 
 ```python
 import funcy_pipe as f
+import whatever as _
+
 entities_from_sql_alchemy
   | fp.lmap(_.to_dict)
   | fp.pmap(fp.omit(["id", "created_at", "updated_at"]))
   | fp.to_list
+```
+
+Grab the ID of a specific user:
+
+```python
+filter_user_id = (
+  collaborator_map().values()
+  | fp.where(email=target_user)
+  | fp.pluck("id")
+  | fp.first()
+)
+```
+
+What if the objects are not dicts?
+
+```python
+filter_user_id = (
+  collaborator_map().values()
+  | fp.where_attr(email=target_user)
+  | fp.pluck_attr("id")
+  | fp.first()
+)
 ```
 
 A more complicated example ([lifted from this project](https://github.com/iloveitaly/todoist-digest/blob/2f893709da2cf3a0f715125053af705fc3adbc4c/run.py#L151-L166)):
@@ -50,11 +78,16 @@ comments = (
 
 * to_list
 * log
-* bp
+* bp. run `breakpoint()` on the input value
 * sort
-* exactly_one
+* exactly_one. Throw an error if the input is not exactly one element
 * reduce
-* pmap
+* pmap. Pass each element of a sequence into a pipe'd function
+
+## Coming From Ruby?
+
+* uniq => distinct
+* detect => `where(some="Condition") | first` or `where_attr(some="Condition") | first`
 
 ### Module Alias
 

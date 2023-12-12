@@ -16,14 +16,22 @@ def export(func):
 
 def apply_decorator_and_export(module, decorator):
     decorated_functions = {}
+
     for name in dir(module):
         if name.startswith("__"):
             continue
+
         obj = getattr(module, name)
+
         if callable(obj):
             decorated_functions[name] = (
                 PipeFirst(obj) if name in PIPE_FIRST_EXCEPTIONS else decorator(obj)
             )
+
+            # add function to the module
+            globals()[name] = decorated_functions[name]
+            __all__.append(name)
+
     return decorated_functions
 
 
@@ -65,6 +73,8 @@ def sort(iterable, key=None, reverse=False):
 # TODO there's `first` but it doesn't throw an exception if there's more than one
 @export
 def exactly_one(comprehension):
+    # TODO detect if we are working with a generator/iterator and maybe use first?
+
     if len(comprehension) != 1:
         raise Exception("Expected to find exactly one matching item")
 
