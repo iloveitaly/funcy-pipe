@@ -1,3 +1,17 @@
+# [0.5.0](https://github.com/iloveitaly/funcy-pipe/compare/v0.4.0...v0.5.0) (2023-12-12)
+
+
+### Bug Fixes
+
+* exports and improved documentation ([5bed144](https://github.com/iloveitaly/funcy-pipe/commit/5bed144efce9d5a5f293cad8f9465ac2612ca752))
+
+
+### Features
+
+* adding pmap for passing in pipe'd versions of funcy into a map function ([3b0352c](https://github.com/iloveitaly/funcy-pipe/commit/3b0352c6d94cf2c28b4771f541102005e62c0ceb))
+
+
+
 # [0.4.0](https://github.com/iloveitaly/funcy-pipe/compare/v0.3.0...v0.4.0) (2023-11-11)
 
 
