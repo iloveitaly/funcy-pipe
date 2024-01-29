@@ -1,7 +1,7 @@
 import functools
-from multiprocessing import Pipe
 from .pipe import PipeFirst, PipeSecond
 import funcy
+import random
 
 __all__ = []
 
@@ -25,7 +25,10 @@ def apply_decorator_and_export(module, decorator):
 
         if callable(obj):
             decorated_functions[name] = (
-                PipeFirst(obj) if name in PIPE_FIRST_EXCEPTIONS else decorator(obj)
+                # TODO lol why pass in decorator if this logic exists?
+                PipeFirst(obj)
+                if name in PIPE_FIRST_EXCEPTIONS
+                else decorator(obj)
             )
 
             # add function to the module
@@ -58,6 +61,25 @@ def log(iterable):
 def bp(iterable):
     breakpoint()
     return iterable
+
+
+# https://github.com/Suor/funcy/pull/143
+@PipeFirst
+@export
+def where_not(mappings, **cond):
+    """Iterates over mappings containing all pairs not in cond."""
+    items = cond.items()
+    match = lambda m: none(k in m and m[k] == v for k, v in items)
+    return filter(match, mappings)
+
+
+# https://github.com/Suor/funcy/pull
+@PipeFirst
+@export
+def shuffle(seq):
+    new_seq = seq.copy()
+    random.shuffle(new_seq)
+    return new_seq
 
 
 @PipeFirst

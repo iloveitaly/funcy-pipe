@@ -7,6 +7,8 @@ data transformation options were not chainable like Ruby + Elixir. This project 
 
 ## Examples
 
+Extract a couple key values from a sql alchemy model:
+
 ```python
 import funcy_pipe as fp
 
@@ -26,6 +28,12 @@ entities_from_sql_alchemy
   | fp.lmap(_.to_dict)
   | fp.pmap(fp.omit(["id", "created_at", "updated_at"]))
   | fp.to_list
+```
+
+Create a map from an array of objects, ensuring the key is always an `int`:
+
+```python
+section_map = api.get_sections() | fp.group_by(f.compose(int, that.id))
 ```
 
 Grab the ID of a specific user:
