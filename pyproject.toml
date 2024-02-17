@@ -10,7 +10,7 @@ readme = "README.md"
 packages = [{ include = "funcy_pipe" }]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.8"
 funcy = "^2.0"
 
 
