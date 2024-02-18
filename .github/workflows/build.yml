@@ -5,15 +5,39 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 # by default, permissions are read-only, read + write is required for git pushes
 permissions:
   contents: write
 
 jobs:
+  matrix-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.11", "3.10", "3.9", "3.8"]
+    steps:
+      - uses: actions/checkout@v4
+      - name: ASDF Parse
+        uses: kota65535/github-asdf-parse-action@v1.1.0
+        id: versions
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "${{ matrix.python-version }}"
+      - uses: abatilo/actions-poetry@v3.0.0
+        with:
+          poetry-version: "${{ steps.versions.outputs.poetry }}"
+      - run: poetry install
+      - run: poetry run pytest -v
+
   build-and-publish:
+    if: github.ref == 'refs/heads/main'
+    needs: matrix-test
     # this package is tied to macos-specific libraries
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -37,10 +61,6 @@ jobs:
       - name: Install dependencies
         run: |
           poetry install
-
-      - name: Make sure it runs
-        run: |
-          poetry run pytest
 
       - name: Conventional Changelog Action
         id: changelog

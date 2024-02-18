@@ -10,12 +10,12 @@ readme = "README.md"
 packages = [{ include = "funcy_pipe" }]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.8"
 funcy = "^2.0"
 
 
 [tool.poetry.group.dev.dependencies]
-pytest = ">=7.4,<9.0"
+pytest = "*"
 
 [build-system]
 requires = ["poetry-core"]
