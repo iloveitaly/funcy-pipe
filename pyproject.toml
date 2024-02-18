@@ -15,7 +15,7 @@ funcy = "^2.0"
 
 
 [tool.poetry.group.dev.dependencies]
-pytest = ">=7.4,<9.0"
+pytest = "*"
 
 [build-system]
 requires = ["poetry-core"]
