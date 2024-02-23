@@ -47,6 +47,12 @@ filter_user_id = (
 )
 ```
 
+Get distinct values from a list (in this case, github events):
+
+```python
+events | fp.pluck("type") | fp.distinct() | fp.to_list()
+```
+
 What if the objects are not dicts?
 
 ```python
@@ -56,6 +62,18 @@ filter_user_id = (
   | fp.pluck_attr("id")
   | fp.first()
 )
+```
+
+How about creating a dict where each value is sorted:
+
+```python
+data
+  # each element is a dict of city information, let's group by state
+  | fp.group_by(itemgetter("state_name"))
+  # now let's sort each value by population, which is stored as a string
+  | fp.walk_values(
+    f.partial(sorted, reverse=True, key=lambda c: int(c["population"])),
+  )
 ```
 
 A more complicated example ([lifted from this project](https://github.com/iloveitaly/todoist-digest/blob/2f893709da2cf3a0f715125053af705fc3adbc4c/run.py#L151-L166)):
@@ -76,6 +94,7 @@ comments = (
     | fp.lmap(enrich_comment)
     # only select the comments posted by our target user
     | fp.lfilter(lambda comment: comment["posted_by_user_id"] == filter_user_id)
+    # there is no `sort` in the funcy library, so we reexport the sort built-in so it's pipe-able
     | fp.sort(key="posted_at_date")
     # create a dictionary of task_id => [comments]
     | fp.group_by(lambda comment: comment["task_id"])
@@ -120,5 +139,4 @@ import fp
 
 - [ ] tests
 - [ ] docs for additional utils
-- [ ] relax python version
 - [ ] fix typing threading
