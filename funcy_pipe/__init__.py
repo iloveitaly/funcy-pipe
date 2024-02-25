@@ -1,7 +1,9 @@
 import functools
-from .pipe import PipeFirst, PipeSecond
-import funcy
 import random
+import funcy
+
+from .funcy_extensions import patch
+from .pipe import PipeFirst, PipeSecond
 
 __all__ = []
 
@@ -12,6 +14,9 @@ PIPE_FIRST_EXCEPTIONS = ["omit"]
 def export(func):
     globals()["__all__"].append(func.__name__)
     return func
+
+
+export(patch)
 
 
 def apply_decorator_and_export(module, decorator):
