@@ -1,3 +1,12 @@
+# [0.8.0](https://github.com/iloveitaly/funcy-pipe/compare/v0.7.0...v0.8.0) (2024-02-25)
+
+
+### Features
+
+* add funcy extensions ([825c677](https://github.com/iloveitaly/funcy-pipe/commit/825c677d494fe1da8fbbb40982194f0cdd66b5da))
+
+
+
 # [0.7.0](https://github.com/iloveitaly/funcy-pipe/compare/v0.6.0...v0.7.0) (2024-02-18)
 
 
@@ -36,15 +45,6 @@
 ### Features
 
 * exactly_one and reduce extras ([f0d663e](https://github.com/iloveitaly/funcy-pipe/commit/f0d663ed973cc2c95e452aa2385a478a2816acfb))
-
-
-
-# [0.3.0](https://github.com/iloveitaly/funcy-pipe/compare/v0.2.0...v0.3.0) (2023-11-11)
-
-
-### Features
-
-* adding sort, bp, and log ([c984e58](https://github.com/iloveitaly/funcy-pipe/commit/c984e58fee35d4794e0a6363c627763c208e09e1))
 
 
 
