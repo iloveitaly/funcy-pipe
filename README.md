@@ -111,6 +111,15 @@ comments = (
 * reduce
 * pmap. Pass each element of a sequence into a pipe'd function
 
+## Extensions
+
+There [are some functions](funcy_pipe/funcy_extensions.py) which are not yet merged upstream into funcy, and may never be. You can patch `funcy` to add them using:
+
+```python
+import funcy_pipe
+funcy_pipe.patch()
+```
+
 ## Coming From Ruby?
 
 * uniq => distinct
