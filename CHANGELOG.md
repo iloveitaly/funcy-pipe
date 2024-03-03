@@ -1,3 +1,12 @@
+# [0.9.0](https://github.com/iloveitaly/funcy-pipe/compare/v0.8.0...v0.9.0) (2024-03-03)
+
+
+### Features
+
+* add omissions list, for functions like `partial` ([6171b77](https://github.com/iloveitaly/funcy-pipe/commit/6171b77d909266fdb3ecc6e7aec5fbe652ca9888))
+
+
+
 # [0.8.0](https://github.com/iloveitaly/funcy-pipe/compare/v0.7.0...v0.8.0) (2024-02-25)
 
 
@@ -36,15 +45,6 @@
 ### Features
 
 * adding pmap for passing in pipe'd versions of funcy into a map function ([3b0352c](https://github.com/iloveitaly/funcy-pipe/commit/3b0352c6d94cf2c28b4771f541102005e62c0ceb))
-
-
-
-# [0.4.0](https://github.com/iloveitaly/funcy-pipe/compare/v0.3.0...v0.4.0) (2023-11-11)
-
-
-### Features
-
-* exactly_one and reduce extras ([f0d663e](https://github.com/iloveitaly/funcy-pipe/commit/f0d663ed973cc2c95e452aa2385a478a2816acfb))
 
 
 
