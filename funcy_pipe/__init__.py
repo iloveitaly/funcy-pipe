@@ -1,3 +1,4 @@
+from calendar import c
 import functools
 import random
 import funcy
@@ -9,6 +10,7 @@ __all__ = []
 
 # where the first param is the iterable
 PIPE_FIRST_EXCEPTIONS = ["omit"]
+PIPE_FIRST_OMISSIONS = ["partial"]
 
 
 def export(func):
@@ -28,17 +30,24 @@ def apply_decorator_and_export(module, decorator):
 
         obj = getattr(module, name)
 
-        if callable(obj):
-            decorated_functions[name] = (
-                # TODO lol why pass in decorator if this logic exists?
-                PipeFirst(obj)
-                if name in PIPE_FIRST_EXCEPTIONS
-                else decorator(obj)
-            )
+        if not callable(obj):
+            continue
 
-            # add function to the module
-            globals()[name] = decorated_functions[name]
+        if name in PIPE_FIRST_OMISSIONS:
+            globals()[name] = obj
             __all__.append(name)
+            continue
+
+        decorated_functions[name] = (
+            # TODO lol why pass in decorator if this logic exists?
+            PipeFirst(obj)
+            if name in PIPE_FIRST_EXCEPTIONS
+            else decorator(obj)
+        )
+
+        # add function to the module
+        globals()[name] = decorated_functions[name]
+        __all__.append(name)
 
     return decorated_functions
 
