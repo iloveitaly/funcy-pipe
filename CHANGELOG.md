@@ -1,3 +1,12 @@
+## [0.9.2](https://github.com/iloveitaly/funcy-pipe/compare/v0.9.1...v0.9.2) (2024-03-23)
+
+
+### Bug Fixes
+
+* apply shuffled feedback ([d4f485b](https://github.com/iloveitaly/funcy-pipe/commit/d4f485b31a2e32cf170cd57b9fe60bac2a790179))
+
+
+
 ## [0.9.1](https://github.com/iloveitaly/funcy-pipe/compare/v0.9.0...v0.9.1) (2024-03-23)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * support earlier python versions ([#8](https://github.com/iloveitaly/funcy-pipe/issues/8)) ([2318bb0](https://github.com/iloveitaly/funcy-pipe/commit/2318bb0b70ad703386633bd2dabb9eb7a1a271a7))
-
-
-
-# [0.6.0](https://github.com/iloveitaly/funcy-pipe/compare/v0.5.0...v0.6.0) (2024-01-29)
-
-
-### Features
-
-* add where_not and shuffle ([1b91a4c](https://github.com/iloveitaly/funcy-pipe/commit/1b91a4c385169ccd8b442dc06814a7974de08d8e))
 
 
 
