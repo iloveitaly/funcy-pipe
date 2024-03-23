@@ -14,7 +14,16 @@ def where_not(mappings, **cond):
     return filter(match, mappings)
 
 
-fp.where_not = PipeSecond(where_not)
+fp.where_not = PipeFirst(where_not)
+
+
+def where_not_attr(objects, **cond):
+    items = cond.items()
+    match = lambda obj: none(hasattr(obj, k) and getattr(obj, k) == v for k, v in items)
+    return filter(match, objects)
+
+
+fp.where_not_attr = PipeFirst(where_not_attr)
 
 
 # https://github.com/Suor/funcy/pull/140
@@ -43,4 +52,5 @@ fp.pluck = PipeSecond(pluck)
 def patch():
     f.where_attr = where_attr
     f.where_not = where_not
+    f.where_not_attr = where_not_attr
     f.pluck = pluck
