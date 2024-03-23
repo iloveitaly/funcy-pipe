@@ -49,8 +49,19 @@ def pluck(key, mappings):
 fp.pluck = PipeSecond(pluck)
 
 
+# https://github.com/Suor/funcy/pull/147
+def shuffled(seq):
+    new_seq = list(seq)
+    random.shuffle(new_seq)
+    return new_seq
+
+
+fp.shuffled = PipeFirst(shuffled)
+
+
 def patch():
     f.where_attr = where_attr
     f.where_not = where_not
     f.where_not_attr = where_not_attr
+    f.shuffled = shuffled
     f.pluck = pluck

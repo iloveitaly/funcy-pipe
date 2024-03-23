@@ -77,25 +77,16 @@ def bp(iterable):
     return iterable
 
 
-# https://github.com/Suor/funcy/pull/143
+# https://github.com/Suor/funcy/pull/147
 @PipeFirst
 @export
-def where_not(mappings, **cond):
-    """Iterates over mappings containing all pairs not in cond."""
-    items = cond.items()
-    match = lambda m: none(k in m and m[k] == v for k, v in items)
-    return filter(match, mappings)
-
-
-# https://github.com/Suor/funcy/pull
-@PipeFirst
-@export
-def shuffle(seq):
-    new_seq = seq.copy()
+def shuffled(seq):
+    new_seq = list(seq)
     random.shuffle(new_seq)
     return new_seq
 
 
+# TODO propose as a funcy addition
 @PipeFirst
 @export
 def sort(iterable, key=None, reverse=False):
@@ -117,6 +108,8 @@ def exactly_one(comprehension):
     return comprehension[0]
 
 
+# TODO should document in funcy and remove this
+# https://github.com/Suor/funcy/commit/bbc249672df3839fc0e3f3fc9fbb4483978886b5
 @PipeFirst
 @export
 def reduce(iterable, func, initial):
