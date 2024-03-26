@@ -1,4 +1,5 @@
 from operator import itemgetter
+import random
 
 import funcy as f
 import funcy_pipe as fp
@@ -59,9 +60,32 @@ def shuffled(seq):
 fp.shuffled = PipeFirst(shuffled)
 
 
+# TODO propose as funcy addition
+def join_str(sep, seq):
+    return sep.join(seq)
+
+
+fp.join_str = PipeSecond(join_str)
+
+
+# TODO propose as funcy addition
+def sort(iterable, key=None, reverse=False):
+    # TODO what about objects?
+    # if key is str, assume it is a dict key
+    if key is not None and type(key) is str:
+        key = f.rpartial(f.get_in, [key])
+
+    return sorted(iterable, key=key, reverse=reverse)
+
+
+fp.sort = PipeFirst(sort)
+
+
 def patch():
     f.where_attr = where_attr
     f.where_not = where_not
     f.where_not_attr = where_not_attr
     f.shuffled = shuffled
     f.pluck = pluck
+    f.join_str = join_str
+    f.sort = sort

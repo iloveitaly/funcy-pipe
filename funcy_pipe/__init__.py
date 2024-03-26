@@ -9,7 +9,7 @@ from .pipe import PipeFirst, PipeSecond
 __all__ = []
 
 # where the first param is the iterable
-PIPE_FIRST_EXCEPTIONS = ["omit"]
+PIPE_FIRST_EXCEPTIONS = ["omit", "iteritems", "itervalues", "empty"]
 PIPE_FIRST_OMISSIONS = ["partial"]
 
 
@@ -75,26 +75,6 @@ def log(iterable):
 def bp(iterable):
     breakpoint()
     return iterable
-
-
-# https://github.com/Suor/funcy/pull/147
-@PipeFirst
-@export
-def shuffled(seq):
-    new_seq = list(seq)
-    random.shuffle(new_seq)
-    return new_seq
-
-
-# TODO propose as a funcy addition
-@PipeFirst
-@export
-def sort(iterable, key=None, reverse=False):
-    # if key is str, assume it is a dict key
-    if key is not None and type(key) is str:
-        key = funcy.rpartial(funcy.get_in, [key])
-
-    return sorted(iterable, key=key, reverse=reverse)
 
 
 # TODO there's `first` but it doesn't throw an exception if there's more than one
