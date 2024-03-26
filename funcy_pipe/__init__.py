@@ -86,6 +86,17 @@ def exactly_one(comprehension):
     return comprehension[0]
 
 
+@export
+def pipe(func):
+    """
+    >>> def f(arr):
+    ...     return arr[0]
+    >>> ["a", "b", "c"] | pipe(f)
+    'a'
+    """
+    return PipeFirst(func)
+
+
 # TODO should document in funcy and remove this
 # https://github.com/Suor/funcy/commit/bbc249672df3839fc0e3f3fc9fbb4483978886b5
 @PipeFirst
@@ -98,6 +109,7 @@ def reduce(iterable, func, initial):
 @export
 def pmap(iterable, func):
     """
-    >>> [1, 2, 3] | fp.pmap(fp.omit("key"))
+    >>> [{"key":1, "keep": 1}, {"key":2, "keep":2}, {"key":3, "keep":3}] | pmap(omit("key")) | to_list()
+    [{'keep': 1}, {'keep': 2}, {'keep': 3}]
     """
     return iterable | fp["map"](lambda x: x | func)
