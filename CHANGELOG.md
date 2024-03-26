@@ -1,3 +1,12 @@
+# [0.11.0](https://github.com/iloveitaly/funcy-pipe/compare/v0.10.1...v0.11.0) (2024-03-26)
+
+
+### Features
+
+* add pipe ([93f1b43](https://github.com/iloveitaly/funcy-pipe/commit/93f1b4383ecd2303de37a8f5141339b9ff5f865f))
+
+
+
 ## [0.10.1](https://github.com/iloveitaly/funcy-pipe/compare/v0.10.0...v0.10.1) (2024-03-26)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * fixing where_not piping, adding where_not_attr ([4022077](https://github.com/iloveitaly/funcy-pipe/commit/402207714eb149973edf353f50b2bbbc471a805b))
-
-
-
-# [0.9.0](https://github.com/iloveitaly/funcy-pipe/compare/v0.8.0...v0.9.0) (2024-03-03)
-
-
-### Features
-
-* add omissions list, for functions like `partial` ([6171b77](https://github.com/iloveitaly/funcy-pipe/commit/6171b77d909266fdb3ecc6e7aec5fbe652ca9888))
 
 
 
