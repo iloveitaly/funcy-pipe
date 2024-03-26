@@ -3,7 +3,13 @@ name = "funcy-pipe"
 version = "0.10.0"
 description = "If Funcy and Pipe had a baby. Decorates all Funcy methods with Pipe superpowers."
 authors = ["Michael Bianco <mike@mikebian.co>"]
-keywords = ["functional-programming", "pipe", "funcy", "data-manipulation"]
+keywords = [
+  "python",
+  "functional-programming",
+  "pipe",
+  "funcy",
+  "data-manipulation",
+]
 homepage = "https://github.com/iloveitaly/funcy-pipe"
 license = "MIT"
 readme = "README.md"

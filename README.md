@@ -1,9 +1,28 @@
+[![Release Notes](https://img.shields.io/github/release/iloveitaly/funcy-pipe)](https://github.com/iloveitaly/funcy-pipe/releases) [![Downloads](https://static.pepy.tech/badge/funcy-pipe/month)](https://pepy.tech/project/funcy-pipe) [![Python Versions](https://img.shields.io/pypi/pyversions/funcy-pipe)](https://pypi.org/project/funcy-pipe) ![GitHub CI Status](https://github.com/iloveitaly/funcy-pipe/actions/workflows/build_and_publish.yml/badge.svg) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # Funcy with pipeline-based operators
 
 If [Funcy](https://github.com/Suor/funcy) and [Pipe](https://github.com/JulienPalard/Pipe) had a baby. Deal with data transformation in python in a sane way.
 
-I love Ruby, but believe Python is the way of the future. As I worked more with Python, it was driving me nuts that the
-data transformation options were not chainable like Ruby + Elixir. This project fixes this pet peeve.
+I love Ruby. It's a great language and one of the things they got right was pipelined data transformation. Elixir got this
+even more right with the explicit pipeline operator `|>`.
+
+However, Python is the way of the future. As I worked more with Python, it was driving me nuts that the
+data transformation options were not chainable.
+
+This project fixes this pet peeve.
+
+## Installation
+
+```shell
+pip install funcy-pipe
+```
+
+Or, if you are using poetry:
+
+```shell
+poetry add funcy-pipe
+```
 
 ## Examples
 
