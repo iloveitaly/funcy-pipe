@@ -1,3 +1,12 @@
+## [0.10.1](https://github.com/iloveitaly/funcy-pipe/compare/v0.10.0...v0.10.1) (2024-03-26)
+
+
+### Bug Fixes
+
+* added curry and partial omissions ([3aae35b](https://github.com/iloveitaly/funcy-pipe/commit/3aae35b51398dc5df11e2f680043274f7812065a))
+
+
+
 # [0.10.0](https://github.com/iloveitaly/funcy-pipe/compare/v0.9.2...v0.10.0) (2024-03-26)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * add omissions list, for functions like `partial` ([6171b77](https://github.com/iloveitaly/funcy-pipe/commit/6171b77d909266fdb3ecc6e7aec5fbe652ca9888))
-
-
-
-# [0.8.0](https://github.com/iloveitaly/funcy-pipe/compare/v0.7.0...v0.8.0) (2024-02-25)
-
-
-### Features
-
-* add funcy extensions ([825c677](https://github.com/iloveitaly/funcy-pipe/commit/825c677d494fe1da8fbbb40982194f0cdd66b5da))
 
 
 
