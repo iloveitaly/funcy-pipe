@@ -1,6 +1,4 @@
-from calendar import c
 import functools
-import random
 import funcy
 
 from .funcy_extensions import patch
@@ -10,7 +8,7 @@ __all__ = []
 
 # where the first param is the iterable
 PIPE_FIRST_EXCEPTIONS = ["omit", "iteritems", "itervalues", "empty"]
-PIPE_FIRST_OMISSIONS = ["partial"]
+PIPE_FIRST_OMISSIONS = ["partial", "rpartial", "curry", "rcurry"]
 
 
 def export(func):
