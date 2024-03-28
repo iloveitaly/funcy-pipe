@@ -28,7 +28,7 @@ poetry add funcy-pipe
 
 Extract a couple key values from a sql alchemy model:
 
-```python
+```python notest
 import funcy_pipe as fp
 
 entities_from_sql_alchemy
@@ -39,7 +39,7 @@ entities_from_sql_alchemy
 
 Or, you can be more fancy and use [whatever](https://github.com/Suor/whatever) and `pmap`:
 
-```python
+```python notest
 import funcy_pipe as f
 import whatever as _
 
@@ -51,13 +51,13 @@ entities_from_sql_alchemy
 
 Create a map from an array of objects, ensuring the key is always an `int`:
 
-```python
+```python notest
 section_map = api.get_sections() | fp.group_by(f.compose(int, that.id))
 ```
 
 Grab the ID of a specific user:
 
-```python
+```python notest
 filter_user_id = (
   collaborator_map().values()
   | fp.where(email=target_user)
@@ -69,12 +69,23 @@ filter_user_id = (
 Get distinct values from a list (in this case, github events):
 
 ```python
-events | fp.pluck("type") | fp.distinct() | fp.to_list()
+events = [
+  {
+    "type": "PushEvent"
+  },
+  {
+    "type": "CommentEvent"
+  }
+]
+
+result = events | fp.pluck("type") | fp.distinct() | fp.to_list()
+
+assert ["PushEvent", "CommentEvent"] == result
 ```
 
 What if the objects are not dicts?
 
-```python
+```python notest
 filter_user_id = (
   collaborator_map().values()
   | fp.where_attr(email=target_user)
@@ -85,7 +96,7 @@ filter_user_id = (
 
 How about creating a dict where each value is sorted:
 
-```python
+```python notest
 data
   # each element is a dict of city information, let's group by state
   | fp.group_by(itemgetter("state_name"))
@@ -97,7 +108,7 @@ data
 
 A more complicated example ([lifted from this project](https://github.com/iloveitaly/todoist-digest/blob/2f893709da2cf3a0f715125053af705fc3adbc4c/run.py#L151-L166)):
 
-```python
+```python notest
 comments = (
     # tasks are pulled from the todoist api
     tasks
@@ -118,6 +129,25 @@ comments = (
     # create a dictionary of task_id => [comments]
     | fp.group_by(lambda comment: comment["task_id"])
 )
+```
+
+Want to grab the values of a list of dict keys?
+
+```python
+def add_field_name(input: dict, keys: list[str]) -> dict:
+    return input | {
+        "field_name": (
+            keys
+            # this is a sneaky trick: if we reference the objects method, when it's called it will contain a reference
+            # to the object
+            | fp.map(input.get)
+            | fp.compact
+            | fp.join_str("_")
+        )
+    }
+
+result = [{ "category": "python", "header": "functional"}] | fp.map(fp.rpartial(add_field_name, ["category", "header"])) | fp.to_list
+assert result == [{'category': 'python', 'header': 'functional', 'field_name': 'python_functional'}]
 ```
 
 ## Extras
@@ -148,7 +178,7 @@ funcy_pipe.patch()
 
 Create a module alias for `funcy-pipe` to make things clean (`import *` always irks me):
 
-```python
+```python notest
 # fp.py
 from funcy_pipe import *
 

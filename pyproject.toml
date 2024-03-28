@@ -22,10 +22,12 @@ funcy = "^2.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.1.1"
+pyright = "^1.1.356"
+pytest-markdown-docs = "^0.5.1"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
-addopts = "--doctest-modules"
+addopts = "--doctest-modules --markdown-docs"
