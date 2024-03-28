@@ -162,6 +162,25 @@ all_checks_successful = (
 )
 ```
 
+Want to grab the values of a list of dict keys?
+
+```python
+def add_field_name(input: dict, keys: list[str]) -> dict:
+    return input | {
+        "field_name": (
+            keys
+            # this is a sneaky trick: if we reference the objects method, when it's called it will contain a reference
+            # to the object
+            | fp.map(input.get)
+            | fp.compact
+            | fp.join_str("_")
+        )
+    }
+
+result = [{ "category": "python", "header": "functional"}] | fp.map(fp.rpartial(add_field_name, ["category", "header"])) | fp.to_list
+assert result == [{'category': 'python', 'header': 'functional', 'field_name': 'python_functional'}]
+```
+
 ## Extras
 
 * to_list
