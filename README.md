@@ -152,7 +152,7 @@ assert result == [{'category': 'python', 'header': 'functional', 'field_name': '
 
 You can also easily test multiple conditions across API data ([extracted from this project](https://github.com/iloveitaly/github-overlord/blob/a3c0e5d0765b3748747e6721e602c0021be0c8e1/github_overlord/__init__.py#L66-L71))
 
-```python no test
+```python notest
 all_checks_successful = (
     last_commit.get_check_runs()
     | fp.pluck_attr("conclusion")
