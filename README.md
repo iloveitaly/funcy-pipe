@@ -150,6 +150,18 @@ result = [{ "category": "python", "header": "functional"}] | fp.map(fp.rpartial(
 assert result == [{'category': 'python', 'header': 'functional', 'field_name': 'python_functional'}]
 ```
 
+You can also easily test multiple conditions across API data ([extracted from this project](https://github.com/iloveitaly/github-overlord/blob/a3c0e5d0765b3748747e6721e602c0021be0c8e1/github_overlord/__init__.py#L66-L71))
+
+```python no test
+all_checks_successful = (
+    last_commit.get_check_runs()
+    | fp.pluck_attr("conclusion")
+    # if you pass a set into `all` each element of the set is used to build a predicate
+    # this condition tests if the "conclusion" attribute is either "success" or "skipped"
+    | fp.all({"success", "skipped"})
+)
+```
+
 ## Extras
 
 * to_list
