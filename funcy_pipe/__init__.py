@@ -8,7 +8,19 @@ __all__ = []
 
 # where the first param is the iterable
 PIPE_FIRST_EXCEPTIONS = ["omit", "iteritems", "itervalues", "empty"]
-PIPE_FIRST_OMISSIONS = ["partial", "rpartial", "curry", "rcurry"]
+# do not wrap these with Pipe object
+PIPE_FIRST_OMISSIONS = [
+    "partial",
+    "rpartial",
+    "curry",
+    "rcurry",
+    "isnone",
+    "notnone",
+    "inc",
+    "dec",
+    "even",
+    "complement",
+]
 
 
 def export(func):
