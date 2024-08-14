@@ -7,7 +7,7 @@ from .pipe import PipeFirst, PipeSecond
 __all__ = []
 
 # where the first param is the iterable
-PIPE_FIRST_EXCEPTIONS = ["omit", "iteritems", "itervalues", "empty"]
+PIPE_FIRST_EXCEPTIONS = ["omit", "iteritems", "itervalues", "empty", "compact"]
 # do not wrap these with Pipe object
 PIPE_FIRST_OMISSIONS = [
     "partial",
@@ -20,8 +20,11 @@ PIPE_FIRST_OMISSIONS = [
     "dec",
     "even",
     "complement",
+    "get_in"
 ]
 
+# hand crafted things that will never be piped
+EXCLUSIONS = ["ContextDecorator", "ErrorRateExceeded", "LazyObject"]
 
 def export(func):
     globals()["__all__"].append(func.__name__)
@@ -31,7 +34,7 @@ def export(func):
 export(patch)
 
 
-def apply_decorator_and_export(module, decorator):
+def apply_decorator_and_export(module):
     decorated_functions = {}
 
     for name in dir(module):
@@ -39,6 +42,9 @@ def apply_decorator_and_export(module, decorator):
             continue
 
         obj = getattr(module, name)
+
+        if name in EXCLUSIONS:
+            continue
 
         if not callable(obj):
             continue
@@ -49,10 +55,9 @@ def apply_decorator_and_export(module, decorator):
             continue
 
         decorated_functions[name] = (
-            # TODO lol why pass in decorator if this logic exists?
             PipeFirst(obj)
             if name in PIPE_FIRST_EXCEPTIONS
-            else decorator(obj)
+            else PipeSecond(obj)
         )
 
         # add function to the module
@@ -62,7 +67,7 @@ def apply_decorator_and_export(module, decorator):
     return decorated_functions
 
 
-fp = apply_decorator_and_export(funcy, PipeSecond)
+fp = apply_decorator_and_export(funcy)
 
 
 @PipeFirst
