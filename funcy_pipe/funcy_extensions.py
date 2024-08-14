@@ -1,5 +1,6 @@
 from operator import itemgetter
 import random
+from typing import Callable
 
 import funcy as f
 import funcy_pipe as fp
@@ -81,11 +82,21 @@ def sort(iterable, key=None, reverse=False):
 fp.sort = PipeFirst(sort)
 
 
+def reject(coll, pred: Callable):
+    # invert the predicate
+    return filter(f.complement(pred), coll)
+
+fp.reject = PipeFirst(reject)
+
 def patch():
-    f.where_attr = where_attr
-    f.where_not = where_not
-    f.where_not_attr = where_not_attr
-    f.shuffled = shuffled
-    f.pluck = pluck
-    f.join_str = join_str
-    f.sort = sort
+    [
+        where_attr,
+        where_not,
+        where_not_attr,
+        shuffled,
+        pluck,
+        join_str,
+        sort,
+        reject,
+    ] | fp.map(lambda func: setattr(f, func.__name__, func)) | fp.to_list()
+
