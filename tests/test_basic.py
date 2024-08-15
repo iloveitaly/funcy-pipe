@@ -38,6 +38,9 @@ def test_compact():
 def test_reject():
     assert [1, 2, 3] | fp.reject(lambda x: x == 2) | fp.to_list == [1, 3]
 
+def test_sample():
+    assert [1, 2, 3] | fp.sample() in [1, 2, 3]
+
 # TODO if the left object has a __or__ method, the right side __ror__ is ignored and you'll get a type error!
 # def test_to_list_with_dict_items():
 #     assert {"a": 1, "b": 2} | fp.iteritems() | fp.to_list() == [("a", 1), ("b", 2)]

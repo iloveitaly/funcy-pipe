@@ -60,6 +60,12 @@ def shuffled(seq):
 
 fp.shuffled = PipeFirst(shuffled)
 
+# TODO propose as funcy addition
+def sample(seq):
+    "Pick a random element from the array"
+    return random.choice(seq)
+
+fp.sample = PipeFirst(sample)
 
 # TODO propose as funcy addition
 def join_str(sep, seq):
@@ -98,5 +104,6 @@ def patch():
         join_str,
         sort,
         reject,
+        sample,
     ] | fp.map(lambda func: setattr(f, func.__name__, func)) | fp.to_list()
 
