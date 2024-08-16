@@ -181,6 +181,15 @@ result = [{ "category": "python", "header": "functional"}] | fp.map(fp.rpartial(
 assert result == [{'category': 'python', 'header': 'functional', 'field_name': 'python_functional'}]
 ```
 
+You can also easily group dictionaries by a key (or arbitrary function):
+
+```python
+import operator
+
+result = [{"age": 10, "name": "Alice"}, {"age": 12, "name": "Bob"}] | fp.group_by(operator.itemgetter("age"))
+assert result == {10: [{'age': 10, 'name': 'Alice'}], 12: [{'age': 12, 'name': 'Bob'}]}
+```
+
 ## Extras
 
 * to_list
@@ -204,6 +213,8 @@ funcy_pipe.patch()
 
 * uniq => distinct
 * detect => `where(some="Condition") | first` or `where_attr(some="Condition") | first`
+* inverse => complement
+* times => repeatedly
 
 ### Module Alias
 
