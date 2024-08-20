@@ -1,3 +1,12 @@
+## [0.11.1](https://github.com/iloveitaly/funcy-pipe/compare/v0.11.0...v0.11.1) (2024-08-20)
+
+
+### Bug Fixes
+
+* more pipe omissions ([61a7db6](https://github.com/iloveitaly/funcy-pipe/commit/61a7db6656a80671cb4fb8956c6854fc418458c3))
+
+
+
 # [0.11.0](https://github.com/iloveitaly/funcy-pipe/compare/v0.10.1...v0.11.0) (2024-03-26)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * apply shuffled feedback ([d4f485b](https://github.com/iloveitaly/funcy-pipe/commit/d4f485b31a2e32cf170cd57b9fe60bac2a790179))
-
-
-
-## [0.9.1](https://github.com/iloveitaly/funcy-pipe/compare/v0.9.0...v0.9.1) (2024-03-23)
-
-
-### Bug Fixes
-
-* fixing where_not piping, adding where_not_attr ([4022077](https://github.com/iloveitaly/funcy-pipe/commit/402207714eb149973edf353f50b2bbbc471a805b))
 
 
 
