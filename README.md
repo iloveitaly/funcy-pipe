@@ -162,6 +162,34 @@ all_checks_successful = (
 )
 ```
 
+Want to grab the values of a list of dict keys?
+
+```python
+def add_field_name(input: dict, keys: list[str]) -> dict:
+    return input | {
+        "field_name": (
+            keys
+            # this is a sneaky trick: if we reference the objects method, when it's called it will contain a reference
+            # to the object
+            | fp.map(input.get)
+            | fp.compact
+            | fp.join_str("_")
+        )
+    }
+
+result = [{ "category": "python", "header": "functional"}] | fp.map(fp.rpartial(add_field_name, ["category", "header"])) | fp.to_list
+assert result == [{'category': 'python', 'header': 'functional', 'field_name': 'python_functional'}]
+```
+
+You can also easily group dictionaries by a key (or arbitrary function):
+
+```python
+import operator
+
+result = [{"age": 10, "name": "Alice"}, {"age": 12, "name": "Bob"}] | fp.group_by(operator.itemgetter("age"))
+assert result == {10: [{'age': 10, 'name': 'Alice'}], 12: [{'age': 12, 'name': 'Bob'}]}
+```
+
 ## Extras
 
 * to_list
@@ -185,6 +213,8 @@ funcy_pipe.patch()
 
 * uniq => distinct
 * detect => `where(some="Condition") | first` or `where_attr(some="Condition") | first`
+* inverse => complement
+* times => repeatedly
 
 ### Module Alias
 
