@@ -23,7 +23,7 @@ funcy = "^2.0"
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.2"
 pyright = "^1.1.376"
-pytest-markdown-docs = "^0.5.1"
+pytest-markdown-docs = ">=0.5.1,<0.7.0"
 
 [build-system]
 requires = ["poetry-core"]
