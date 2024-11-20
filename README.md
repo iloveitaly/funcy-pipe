@@ -235,6 +235,10 @@ import fp
 * https://pypi.org/project/funcy-chain
 * https://github.com/JulienPalard/Pipe
 
+# Related Projects
+
+* https://pydash.readthedocs.io/en/latest/
+
 # TODO
 
 - [ ] tests
