@@ -108,7 +108,7 @@ def patch():
         f.__all__.append(func.__name__)
         fp.__all__.append(func.__name__)
 
-    f.map(add_to_module, [
+    f.lmap(add_to_module, [
         where_attr,
         where_not,
         where_not_attr,
