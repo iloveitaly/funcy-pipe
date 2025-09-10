@@ -100,7 +100,15 @@ fp.reject = PipeFirst(reject)
 
 
 def min_func(iterable, additional=None):
-    """Find the minimum value in iterable, optionally adding additional values."""
+    """Find the minimum value in iterable, optionally adding additional values.
+    
+    >>> [1, 2, 3] | fp.min()
+    1
+    >>> [1, 2, 3] | fp.min(0)
+    0
+    >>> [1, 2, 3] | fp.min([0, 5])
+    0
+    """
     items = list(iterable)
     if additional is not None:
         if isinstance(additional, (list, tuple)):
@@ -114,7 +122,15 @@ fp.min = PipeFirst(min_func)
 
 
 def max_func(iterable, additional=None):
-    """Find the maximum value in iterable, optionally adding additional values.""" 
+    """Find the maximum value in iterable, optionally adding additional values.
+    
+    >>> [1, 2, 3] | fp.max()
+    3
+    >>> [1, 2, 3] | fp.max(5)
+    5
+    >>> [1, 2, 3] | fp.max([0, 5])
+    5
+    """ 
     items = list(iterable)
     if additional is not None:
         if isinstance(additional, (list, tuple)):
@@ -128,7 +144,13 @@ fp.max = PipeFirst(max_func)
 
 
 def sum_func(iterable, start=0):
-    """Sum the values in iterable, with optional start value."""
+    """Sum the values in iterable, with optional start value.
+    
+    >>> [1, 2, 3] | fp.sum()
+    6
+    >>> [1, 2, 3] | fp.sum(10)
+    16
+    """
     return sum(iterable, start)
 
 
