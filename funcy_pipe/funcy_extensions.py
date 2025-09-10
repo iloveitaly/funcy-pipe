@@ -136,16 +136,23 @@ fp.sum = PipeFirst(sum_func)
 
 
 def patch():
-    def add_to_module(func):
+    def add_to_module(func, name=None):
         """
         What I'm trying to figure out here is the best way to add methods to the module in a way that the type system picks up on it :/
         """
-        setattr(f, func.__name__, func)
-        f.__all__.append(func.__name__)
-        fp.__all__.append(func.__name__)
+        func_name = name or func.__name__
+        setattr(f, func_name, func)
+        f.__all__.append(func_name)
+        fp.__all__.append(func_name)
+
+    def add_standard_func(func):
+        return add_to_module(func)
+    
+    def add_named_func(func, name):
+        return add_to_module(func, name)
 
     # Consume the map iterator to ensure functions are actually added
-    list(f.map(add_to_module, [
+    list(f.map(add_standard_func, [
         where_attr,
         where_not,
         where_not_attr,
@@ -155,7 +162,9 @@ def patch():
         sort,
         reject,
         sample,
-        min_func,
-        max_func,
-        sum_func,
     ]))
+    
+    # Add min, max, sum with custom names 
+    add_named_func(min_func, 'min')
+    add_named_func(max_func, 'max')
+    add_named_func(sum_func, 'sum')
