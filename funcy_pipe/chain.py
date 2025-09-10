@@ -2,8 +2,9 @@
 Chain(a).map(lambda n: n + 1).filter(lambda n: n>2).list()
 """
 
-# TODO
-# TODO need to the first/second position arugment thing here too
+import funcy
+
+# TODO autogen types for this too.
 # TODO need list, set, etc methods for this
 
 def partial_second_arg(func, second_arg):
@@ -23,11 +24,10 @@ class Chain:
     def __getattr__(self, name):
         "forward method calls to the associated method"
 
-        import funcy
-
         attr = getattr(funcy, name, None)
 
         if callable(attr):
+            # TODO need to the first/second position arugment thing here too
             return chain_wrap(partial_second_arg(attr, self.value))
         
         raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
