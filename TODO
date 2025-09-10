@@ -1,5 +1,11 @@
+- [ ] need some sort of exists(): `paid_ticket_orders | fp.pluck("stripe_payment_intent_id") | fp.compact()`
+- [ ] use new python package template
 - [ ] https://github.com/Suor/funcy/issues/148
 - [ ] there are some duplicate methods in __init__ that should be removed now that we have extensions
 - [ ] automated documentation?
 - [ ] maybe support chaining as well
 - [ ] should `identity` and `constantly` be omitted?
+- [ ] maybe support chaining as well
+- [ ] PipeFirst == PipeSecond when a function only has a single arg. Maybe we should inspect this case and set it up dynamically?
+        # TODO should have some addition to handle this
+        | fp.pluck("subject") | fp.pluck("url")
