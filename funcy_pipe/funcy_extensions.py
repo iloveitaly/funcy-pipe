@@ -64,13 +64,11 @@ fp.shuffled = PipeFirst(shuffled)
 # TODO propose as funcy addition
 def sample(seq):
     "Pick a random element from the array"
-    if hasattr(seq, '__len__'):
-        return random.choice(seq)
-    else:
+    if not hasattr(seq, '__len__'):
         # seq doesn't support random.choice (likely generator, filter, etc.)
-        # Convert to list and try again
-        seq_list = list(seq)
-        return random.choice(seq_list)
+        # Convert to list
+        seq = list(seq)
+    return random.choice(seq)
 
 
 fp.sample = PipeFirst(sample)
