@@ -7,6 +7,8 @@ https://github.com/JulienPalard/Pipe/blob/main/pipe.py
 import functools
 
 
+# TODO should be able to use generics here
+# https://stackoverflow.com/questions/60202691/python-typing-declare-return-value-type-based-on-function-argument
 class PipeFirst:
     """
     Takes the input into `|` and passes to the first argument of the function
