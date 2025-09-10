@@ -162,9 +162,7 @@ def patch():
         sort,
         reject,
         sample,
+        min_func,
+        max_func,
+        sum_func,
     ]))
-    
-    # Add min, max, sum with custom names 
-    add_named_func(min_func, 'min')
-    add_named_func(max_func, 'max')
-    add_named_func(sum_func, 'sum')

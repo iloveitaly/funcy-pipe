@@ -64,11 +64,11 @@ def test_aggregates_patched():
     funcy_extensions.patch()
     
     # Test that the functions exist in funcy after patching with correct names
-    assert hasattr(f, 'min')
-    assert hasattr(f, 'max') 
-    assert hasattr(f, 'sum')
+    assert hasattr(f, 'min_func')
+    assert hasattr(f, 'max_func') 
+    assert hasattr(f, 'sum_func')
     
     # Test that they work through funcy
-    assert f.min([1, 2, 3]) == 1
-    assert f.max([1, 2, 3]) == 3
-    assert f.sum([1, 2, 3]) == 6
+    assert f.min_func([1, 2, 3]) == 1
+    assert f.max_func([1, 2, 3]) == 3
+    assert f.sum_func([1, 2, 3]) == 6
