@@ -59,6 +59,58 @@ def test_sum_with_start():
     assert [] | fp.sum(10) == 10
 
 
+def test_min_no_mutation():
+    """Test that min functions don't mutate original lists."""
+    # Test that original iterable is not mutated
+    original_list = [1, 2, 3]
+    original_copy = original_list.copy()
+    result = original_list | fp.min([0, 5])
+    assert original_list == original_copy
+    assert result == 0
+    
+    # Test that additional list is not mutated
+    original_list = [1, 2, 3]
+    additional_list = [0, 5]
+    additional_copy = additional_list.copy()
+    result = original_list | fp.min(additional_list)
+    assert additional_list == additional_copy
+    assert result == 0
+    
+    # Test with tuple as additional parameter
+    original_list = [1, 2, 3]
+    additional_tuple = (0, 5)
+    original_copy = original_list.copy()
+    result = original_list | fp.min(additional_tuple)
+    assert original_list == original_copy
+    assert result == 0
+
+
+def test_max_no_mutation():
+    """Test that max functions don't mutate original lists."""
+    # Test that original iterable is not mutated
+    original_list = [1, 2, 3]
+    original_copy = original_list.copy()
+    result = original_list | fp.max([5, 10])
+    assert original_list == original_copy
+    assert result == 10
+    
+    # Test that additional list is not mutated
+    original_list = [1, 2, 3]
+    additional_list = [5, 10]
+    additional_copy = additional_list.copy()
+    result = original_list | fp.max(additional_list)
+    assert additional_list == additional_copy
+    assert result == 10
+    
+    # Test with tuple as additional parameter
+    original_list = [1, 2, 3]
+    additional_tuple = (5, 10)
+    original_copy = original_list.copy()
+    result = original_list | fp.max(additional_tuple)
+    assert original_list == original_copy
+    assert result == 10
+
+
 def test_aggregates_patched():
     """Test that aggregate functions are properly patched into funcy module with correct names."""
     funcy_extensions.patch()
