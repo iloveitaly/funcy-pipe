@@ -1,3 +1,12 @@
+# [0.12.0](https://github.com/iloveitaly/funcy-pipe/compare/v0.11.2...v0.12.0) (2025-09-10)
+
+
+### Features
+
+* `sample` function to support generators and filter objects ([#76](https://github.com/iloveitaly/funcy-pipe/issues/76)) ([3ffaae1](https://github.com/iloveitaly/funcy-pipe/commit/3ffaae164a008f981565c0b5bc71f2976579a1c6))
+
+
+
 ## [0.11.2](https://github.com/iloveitaly/funcy-pipe/compare/v0.11.1...v0.11.2) (2025-09-10)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * added curry and partial omissions ([3aae35b](https://github.com/iloveitaly/funcy-pipe/commit/3aae35b51398dc5df11e2f680043274f7812065a))
-
-
-
-# [0.10.0](https://github.com/iloveitaly/funcy-pipe/compare/v0.9.2...v0.10.0) (2024-03-26)
-
-
-### Features
-
-* add join_str, sort, and fix iteritems and other helper exceptions ([263cb93](https://github.com/iloveitaly/funcy-pipe/commit/263cb934b09d30e3c5d611d895fd4cbc769849b9))
 
 
 
