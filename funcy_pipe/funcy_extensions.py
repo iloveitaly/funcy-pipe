@@ -64,7 +64,13 @@ fp.shuffled = PipeFirst(shuffled)
 # TODO propose as funcy addition
 def sample(seq):
     "Pick a random element from the array"
-    return random.choice(seq)
+    try:
+        return random.choice(seq)
+    except TypeError:
+        # seq doesn't support random.choice (likely generator, filter, etc.)
+        # Convert to list and try again
+        seq_list = list(seq)
+        return random.choice(seq_list)
 
 
 fp.sample = PipeFirst(sample)
