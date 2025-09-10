@@ -65,6 +65,8 @@ def modify_signature_for_pipe(signature, pipe_type):
         del params[0]
     elif pipe_type == "PipeSecond" and len(params) > 1:
         del params[1]
+    else:
+        print(f"Skipping modifying {signature} for {pipe_type}...")
 
     # Reconstruct the signature without the removed parameter
     new_params = [
@@ -114,6 +116,7 @@ def generate_pyi(module_name: str):
                 signature = generate_signature(obj.function)
                 modified_signature = modify_signature_for_pipe(signature, cls)
             else:
+                print(f"Skipping {obj_name}, not a PipeFirst or PipeSecond...")
                 signature = generate_signature(obj)
                 modified_signature = modify_signature_for_pipe(signature, cls)
 
@@ -124,8 +127,10 @@ def generate_pyi(module_name: str):
     return "\n".join(lines)
 
 
+# TODO pull from argv
+import_call = "import funcy_pipe; import funcy_pipe.funcy_extensions; funcy_pipe.funcy_extensions.patch()"
+exec(import_call)
 module_name = "funcy_pipe"
-exec(f"import {module_name}")
 
 pyi_content = generate_pyi(module_name)
 with open(f"{module_name}/__init__.pyi", "w") as f:
