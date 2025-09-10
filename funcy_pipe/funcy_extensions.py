@@ -60,12 +60,15 @@ def shuffled(seq):
 
 fp.shuffled = PipeFirst(shuffled)
 
+
 # TODO propose as funcy addition
 def sample(seq):
     "Pick a random element from the array"
     return random.choice(seq)
 
+
 fp.sample = PipeFirst(sample)
+
 
 # TODO propose as funcy addition
 def join_str(sep, seq):
@@ -92,10 +95,20 @@ def reject(coll, pred: Callable):
     # invert the predicate
     return filter(f.complement(pred), coll)
 
+
 fp.reject = PipeFirst(reject)
 
+
 def patch():
-    [
+    def add_to_module(func):
+        """
+        What I'm trying to figure out here is the best way to add methods to the module in a way that the type system picks up on it :/
+        """
+        setattr(f, func.__name__, func)
+        f.__all__.append(func.__name__)
+        fp.__all__.append(func.__name__)
+
+    f.map(add_to_module, [
         where_attr,
         where_not,
         where_not_attr,
@@ -105,5 +118,4 @@ def patch():
         sort,
         reject,
         sample,
-    ] | fp.map(lambda func: setattr(f, func.__name__, func)) | fp.to_list()
-
+    ])
