@@ -1,3 +1,12 @@
+## [0.11.2](https://github.com/iloveitaly/funcy-pipe/compare/v0.11.1...v0.11.2) (2025-09-10)
+
+
+### Bug Fixes
+
+* lazy evaluation bug in funcy_extensions.patch() function ([#72](https://github.com/iloveitaly/funcy-pipe/issues/72)) ([ddb14dd](https://github.com/iloveitaly/funcy-pipe/commit/ddb14dd3cc9df957d09aa68a101c073792983b15))
+
+
+
 ## [0.11.1](https://github.com/iloveitaly/funcy-pipe/compare/v0.11.0...v0.11.1) (2024-08-20)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * add join_str, sort, and fix iteritems and other helper exceptions ([263cb93](https://github.com/iloveitaly/funcy-pipe/commit/263cb934b09d30e3c5d611d895fd4cbc769849b9))
-
-
-
-## [0.9.2](https://github.com/iloveitaly/funcy-pipe/compare/v0.9.1...v0.9.2) (2024-03-23)
-
-
-### Bug Fixes
-
-* apply shuffled feedback ([d4f485b](https://github.com/iloveitaly/funcy-pipe/commit/d4f485b31a2e32cf170cd57b9fe60bac2a790179))
 
 
 
