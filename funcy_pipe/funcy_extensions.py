@@ -99,6 +99,42 @@ def reject(coll, pred: Callable):
 fp.reject = PipeFirst(reject)
 
 
+def min_func(iterable, additional=None):
+    """Find the minimum value in iterable, optionally adding additional values."""
+    items = list(iterable)
+    if additional is not None:
+        if isinstance(additional, (list, tuple)):
+            items.extend(additional)
+        else:
+            items.append(additional)
+    return min(items)
+
+
+fp.min = PipeFirst(min_func)
+
+
+def max_func(iterable, additional=None):
+    """Find the maximum value in iterable, optionally adding additional values.""" 
+    items = list(iterable)
+    if additional is not None:
+        if isinstance(additional, (list, tuple)):
+            items.extend(additional)
+        else:
+            items.append(additional)
+    return max(items)
+
+
+fp.max = PipeFirst(max_func)
+
+
+def sum_func(iterable, start=0):
+    """Sum the values in iterable, with optional start value."""
+    return sum(iterable, start)
+
+
+fp.sum = PipeFirst(sum_func)
+
+
 def patch():
     def add_to_module(func):
         """
@@ -108,7 +144,8 @@ def patch():
         f.__all__.append(func.__name__)
         fp.__all__.append(func.__name__)
 
-    f.map(add_to_module, [
+    # Consume the map iterator to ensure functions are actually added
+    list(f.map(add_to_module, [
         where_attr,
         where_not,
         where_not_attr,
@@ -118,4 +155,7 @@ def patch():
         sort,
         reject,
         sample,
-    ])
+        min_func,
+        max_func,
+        sum_func,
+    ]))
