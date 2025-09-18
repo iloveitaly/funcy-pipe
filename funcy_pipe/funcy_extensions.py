@@ -103,6 +103,28 @@ def reject(coll, pred: Callable):
 fp.reject = PipeFirst(reject)
 
 
+# Ruby-style detect function - equivalent to where(condition) | first
+def detect(mappings, **cond):
+    """Find the first mapping containing all pairs in cond."""
+    items = cond.items()
+    match = lambda m: all(k in m and m[k] == v for k, v in items)
+    return f.first(filter(match, mappings))
+
+
+fp.detect = PipeFirst(detect)
+
+
+# Ruby-style detect_attr function - equivalent to where_attr(condition) | first  
+def detect_attr(objects, **cond):
+    """Find the first object having all attributes matching cond."""
+    items = cond.items()
+    match = lambda obj: all(hasattr(obj, k) and getattr(obj, k) == v for k, v in items)
+    return f.first(filter(match, objects))
+
+
+fp.detect_attr = PipeFirst(detect_attr)
+
+
 def patch():
     def add_to_module(func):
         """
@@ -122,4 +144,6 @@ def patch():
         sort,
         reject,
         sample,
+        detect,
+        detect_attr,
     ])

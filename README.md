@@ -209,10 +209,48 @@ import funcy_pipe
 funcy_pipe.patch()
 ```
 
+Find the first element matching a condition (detect):
+
+```python
+users = [
+    {"name": "Alice", "age": 25, "city": "NYC"},
+    {"name": "Bob", "age": 30, "city": "SF"},
+    {"name": "Charlie", "age": 25, "city": "LA"}
+]
+
+# Find first user aged 25
+first_young_user = users | fp.detect(age=25)
+assert first_young_user == {"name": "Alice", "age": 25, "city": "NYC"}
+
+# Find first user aged 25 in NYC
+first_young_nyc_user = users | fp.detect(age=25, city="NYC")
+assert first_young_nyc_user == {"name": "Alice", "age": 25, "city": "NYC"}
+
+# Returns None if no match found
+no_match = users | fp.detect(age=99)
+assert no_match is None
+```
+
+Same for objects using detect_attr:
+
+```python notest
+class User:
+    def __init__(self, name, age, city):
+        self.name = name
+        self.age = age
+        self.city = city
+
+users = [User("Alice", 25, "NYC"), User("Bob", 30, "SF")]
+
+# Find first user aged 25
+first_young_user = users | fp.detect_attr(age=25)
+assert first_young_user.name == "Alice"
+```
+
 ## Coming From Ruby?
 
 * uniq => distinct
-* detect => `where(some="Condition") | first` or `where_attr(some="Condition") | first`
+* detect => detect or `where(some="Condition") | first` or `where_attr(some="Condition") | first`
 * inverse => complement
 * times => repeatedly
 
