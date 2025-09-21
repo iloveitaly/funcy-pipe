@@ -103,7 +103,6 @@ def reject(coll, pred: Callable):
 fp.reject = PipeFirst(reject)
 
 
-# Ruby-style detect function - equivalent to where(condition) | first
 def detect(mappings, **cond):
     """Find the first mapping containing all pairs in cond."""
     items = cond.items()
@@ -114,7 +113,6 @@ def detect(mappings, **cond):
 fp.detect = PipeFirst(detect)
 
 
-# Ruby-style detect_attr function - equivalent to where_attr(condition) | first  
 def detect_attr(objects, **cond):
     """Find the first object having all attributes matching cond."""
     items = cond.items()
