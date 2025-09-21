@@ -108,7 +108,7 @@ def detect(mappings, **cond):
     """Find the first mapping containing all pairs in cond."""
     items = cond.items()
     match = lambda m: all(k in m and m[k] == v for k, v in items)
-    return f.first(filter(match, mappings))
+    return f.first(f.filter(match, mappings))
 
 
 fp.detect = PipeFirst(detect)
@@ -119,7 +119,7 @@ def detect_attr(objects, **cond):
     """Find the first object having all attributes matching cond."""
     items = cond.items()
     match = lambda obj: all(hasattr(obj, k) and getattr(obj, k) == v for k, v in items)
-    return f.first(filter(match, objects))
+    return f.first(f.filter(match, objects))
 
 
 fp.detect_attr = PipeFirst(detect_attr)
