@@ -209,10 +209,24 @@ import funcy_pipe
 funcy_pipe.patch()
 ```
 
+Find the first element matching a condition (detect):
+
+```python
+users = [
+    {"name": "Alice", "age": 25, "city": "NYC"},
+    {"name": "Bob", "age": 30, "city": "SF"},
+    {"name": "Charlie", "age": 25, "city": "LA"}
+]
+
+# Find first user aged 25
+first_young_user = users | fp.detect(age=25)
+assert first_young_user == {"name": "Alice", "age": 25, "city": "NYC"}
+```
+
 ## Coming From Ruby?
 
 * uniq => distinct
-* detect => `where(some="Condition") | first` or `where_attr(some="Condition") | first`
+* detect => detect or `where(some="Condition") | first` or `where_attr(some="Condition") | first`
 * inverse => complement
 * times => repeatedly
 
