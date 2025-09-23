@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "funcy-pipe"
-version = "0.12.0"
+version = "0.13.0"
 description = "If Funcy and Pipe had a baby. Decorates all Funcy methods with Pipe superpowers."
 authors = ["Michael Bianco <mike@mikebian.co>"]
 keywords = [
