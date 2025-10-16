@@ -1,30 +1,11 @@
 import functools
 import funcy
 
+from .constants import EXCLUSIONS, PIPE_FIRST_EXCEPTIONS, PIPE_FIRST_OMISSIONS
 from .funcy_extensions import patch
 from .pipe import PipeFirst, PipeSecond
 
 __all__ = []
-
-# where the first param is the iterable
-PIPE_FIRST_EXCEPTIONS = ["omit", "iteritems", "itervalues", "empty", "compact"]
-# do not wrap these with Pipe object
-PIPE_FIRST_OMISSIONS = [
-    "partial",
-    "rpartial",
-    "curry",
-    "rcurry",
-    "isnone",
-    "notnone",
-    "inc",
-    "dec",
-    "even",
-    "complement",
-    "get_in"
-]
-
-# hand crafted things that will never be piped
-EXCLUSIONS = ["ContextDecorator", "ErrorRateExceeded", "LazyObject"]
 
 def export(func):
     globals()["__all__"].append(func.__name__)
