@@ -1,4 +1,5 @@
-from operator import itemgetter
+from functools import reduce
+from operator import getitem, itemgetter
 import random
 from typing import Callable
 
@@ -123,6 +124,37 @@ def detect_attr(objects, **cond):
 fp.detect_attr = PipeFirst(detect_attr)
 
 
+def dig(path, data, *, default=None):
+    """
+    Dig into nested dict using dot-path string or list of keys.
+    Raises KeyError/TypeError if path missing and no default.
+
+    >>> dig('a.b', {'a': {'b': 1}})
+    1
+    >>> dig('a.b', {'a': {'b': 1}}, default=42)
+    1
+    >>> dig('a.x', {'a': {'b': 1}}, default=42)
+    42
+    >>> dig('a.x', {'a': {'b': 1}})
+    Traceback (most recent call last):
+    ...
+    KeyError: 'x'
+    >>> dig(['a', 'b'], {'a': {'b': 1}})
+    1
+    """
+
+    keys = path.split(".") if isinstance(path, str) else path
+    try:
+        return reduce(getitem, keys, data)
+    except (KeyError, TypeError):
+        if default is not None:
+            return default
+        raise
+
+
+fp.dig = PipeSecond(dig)
+
+
 def patch():
     def add_to_module(func):
         """
@@ -132,16 +164,20 @@ def patch():
         f.__all__.append(func.__name__)
         fp.__all__.append(func.__name__)
 
-    f.lmap(add_to_module, [
-        where_attr,
-        where_not,
-        where_not_attr,
-        shuffled,
-        pluck,
-        join_str,
-        sort,
-        reject,
-        sample,
-        detect,
-        detect_attr,
-    ])
+    f.lmap(
+        add_to_module,
+        [
+            where_attr,
+            where_not,
+            where_not_attr,
+            shuffled,
+            pluck,
+            join_str,
+            sort,
+            reject,
+            sample,
+            detect,
+            detect_attr,
+            dig,
+        ],
+    )
