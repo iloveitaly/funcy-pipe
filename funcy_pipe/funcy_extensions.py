@@ -1,4 +1,5 @@
-from operator import itemgetter
+from functools import reduce
+from operator import getitem, itemgetter
 import random
 from typing import Callable
 
@@ -99,6 +100,37 @@ def reject(coll, pred: Callable):
 fp.reject = PipeFirst(reject)
 
 
+def dig(path, data, *, default=None):
+    """
+    Dig into nested dict using dot-path string or list of keys.
+    Raises KeyError/TypeError if path missing and no default.
+
+    >>> dig('a.b', {'a': {'b': 1}})
+    1
+    >>> dig('a.b', {'a': {'b': 1}}, default=42)
+    1
+    >>> dig('a.x', {'a': {'b': 1}}, default=42)
+    42
+    >>> dig('a.x', {'a': {'b': 1}})
+    Traceback (most recent call last):
+    ...
+    KeyError: 'x'
+    >>> dig(['a', 'b'], {'a': {'b': 1}})
+    1
+    """
+
+    keys = path.split(".") if isinstance(path, str) else path
+    try:
+        return reduce(getitem, keys, data)
+    except (KeyError, TypeError):
+        if default is not None:
+            return default
+        raise
+
+
+fp.dig = PipeSecond(dig)
+
+
 def patch():
     def add_to_module(func):
         """
@@ -108,7 +140,7 @@ def patch():
         f.__all__.append(func.__name__)
         fp.__all__.append(func.__name__)
 
-    f.map(add_to_module, [
+    for func in [
         where_attr,
         where_not,
         where_not_attr,
@@ -118,4 +150,6 @@ def patch():
         sort,
         reject,
         sample,
-    ])
+        dig,
+    ]:
+        add_to_module(func)
