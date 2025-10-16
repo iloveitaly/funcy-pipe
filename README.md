@@ -251,7 +251,9 @@ import fp
 
 # Related Projects
 
+* https://github.com/ruancomelli/funcy-stubs
 * https://pydash.readthedocs.io/en/latest/
+* https://github.com/dbrattli/Expression
 
 # TODO
 
