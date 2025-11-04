@@ -1,3 +1,12 @@
+# [0.14.0](https://github.com/iloveitaly/funcy-pipe/compare/v0.13.0...v0.14.0) (2025-11-04)
+
+
+### Features
+
+* add dig function for nested dict lookup with defaults ([bb77168](https://github.com/iloveitaly/funcy-pipe/commit/bb77168c36da13ea33d272138595c693d5c22835))
+
+
+
 # [0.13.0](https://github.com/iloveitaly/funcy-pipe/compare/v0.12.0...v0.13.0) (2025-09-23)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * more pipe omissions ([61a7db6](https://github.com/iloveitaly/funcy-pipe/commit/61a7db6656a80671cb4fb8956c6854fc418458c3))
-
-
-
-# [0.11.0](https://github.com/iloveitaly/funcy-pipe/compare/v0.10.1...v0.11.0) (2024-03-26)
-
-
-### Features
-
-* add pipe ([93f1b43](https://github.com/iloveitaly/funcy-pipe/commit/93f1b4383ecd2303de37a8f5141339b9ff5f865f))
 
 
 
