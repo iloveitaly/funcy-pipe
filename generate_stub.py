@@ -96,7 +96,8 @@ def modify_signature_for_pipe(signature, pipe_type):
 def generate_pyi(module_name: str):
     lines = ["from typing import Any, Callable\n"]
 
-    all_objects = globals()[module_name].__all__
+    # Use dict.fromkeys to deduplicate while preserving order
+    all_objects = list(dict.fromkeys(globals()[module_name].__all__))
 
     for obj_name in all_objects:
         obj = getattr(globals()[module_name], obj_name)
@@ -110,7 +111,9 @@ def generate_pyi(module_name: str):
 
             # Modify signature based on class type
             if cls in ["PipeFirst", "PipeSecond"]:
-                signature = generate_signature(obj.function)
+                # Use getattr to satisfy the linter's type checking for dynamic attributes
+                wrapped_func = getattr(obj, "function", obj)
+                signature = generate_signature(wrapped_func)
                 modified_signature = modify_signature_for_pipe(signature, cls)
             else:
                 signature = generate_signature(obj)
