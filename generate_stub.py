@@ -1,23 +1,8 @@
-# import inspect
-# import funcy_pipe
-
-
-# def generate_stubs(module):
-#     for name, obj in inspect.getmembers(module):
-#         if inspect.isfunction(obj):
-#             # This will be more complex for dynamically wrapped functions.
-#             # You might only get '(*args, **kwargs)' for these, unfortunately.
-#             print(f"def {name}{inspect.signature(obj)}: ...")
-
-
-# breakpoint()
-# generate_stubs(funcy_pipe)
-
 # stub_gen.py
 
 import inspect
+import subprocess
 from typing import Callable
-
 
 
 def get_generic_signature() -> inspect.Signature:
@@ -51,9 +36,6 @@ def guess_type(param):
         return int
     else:
         return param.annotation
-
-
-stop_it = False
 
 
 def modify_signature_for_pipe(signature, pipe_type):
@@ -93,14 +75,36 @@ def modify_signature_for_pipe(signature, pipe_type):
     return str(inspect.Signature(parameters=new_params))
 
 
-def generate_pyi(module_name: str):
-    lines = ["from typing import Any, Callable\n"]
+def discover_extensions():
+    import funcy_pipe.funcy_extensions as extensions
 
+    return [
+        name
+        for name, obj in inspect.getmembers(extensions)
+        if inspect.isfunction(obj) and not name.startswith("_")
+    ]
+
+
+def generate_pyi(module_name: str):
     # Use dict.fromkeys to deduplicate while preserving order
-    all_objects = list(dict.fromkeys(globals()[module_name].__all__))
+    import funcy_pipe
+
+    all_objects = list(dict.fromkeys(funcy_pipe.__all__))
+
+    extension_names = discover_extensions()
+    import funcy_pipe.funcy_extensions as extensions
+
+    # Combine and deduplicate
+    all_objects = list(dict.fromkeys(all_objects + extension_names))
+
+    body_lines = []
+    use_any = False
 
     for obj_name in all_objects:
-        obj = getattr(globals()[module_name], obj_name)
+        # Check main module first, then extensions
+        obj = getattr(funcy_pipe, obj_name, None)
+        if obj is None:
+            obj = getattr(extensions, obj_name, None)
 
         if not obj:
             print(f"Skipping {obj_name}, could not find...")
@@ -111,7 +115,6 @@ def generate_pyi(module_name: str):
 
             # Modify signature based on class type
             if cls in ["PipeFirst", "PipeSecond"]:
-                # Use getattr to satisfy the linter's type checking for dynamic attributes
                 wrapped_func = getattr(obj, "function", obj)
                 signature = generate_signature(wrapped_func)
                 modified_signature = modify_signature_for_pipe(signature, cls)
@@ -119,16 +122,28 @@ def generate_pyi(module_name: str):
                 signature = generate_signature(obj)
                 modified_signature = modify_signature_for_pipe(signature, cls)
 
-            lines.append(f"def {obj_name}{modified_signature}: ...\n")
+            body_lines.append(f"def {obj_name}{modified_signature}: ...\n")
         else:
-            lines.append(f"{obj_name}: Any\n")  # Handle non-callable objects
+            use_any = True
+            body_lines.append(f"{obj_name}: Any\n")
 
-    return "\n".join(lines)
+    header_lines = ["from typing import Callable\n"]
+    if use_any:
+        header_lines[0] = "from typing import Any, Callable\n"
+
+    return "".join(header_lines) + "\n" + "".join(body_lines)
 
 
-module_name = "funcy_pipe"
-exec(f"import {module_name}")
+def main():
+    module_name = "funcy_pipe"
+    pyi_path = f"{module_name}/__init__.pyi"
+    pyi_content = generate_pyi(module_name)
+    with open(pyi_path, "w") as f:
+        f.write(pyi_content)
 
-pyi_content = generate_pyi(module_name)
-with open(f"{module_name}/__init__.pyi", "w") as f:
-    f.write(pyi_content)
+    # format the generated file
+    subprocess.run(["uv", "run", "ruff", "format", pyi_path], check=True)
+
+
+if __name__ == "__main__":
+    main()
