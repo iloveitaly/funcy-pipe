@@ -51,9 +51,10 @@ lint-fix:
 
 # Clean build artifacts and cache
 clean:
-    rm -rf *.egg-info .venv || true
+    rm -rf *.egg-info .venv dist .mypy_cache .pytest_cache || true
     find . -type f -name "*.pyc" -delete
     find . -type d -name "__pycache__" -delete || true
+    find . -type d -name ".mypy_cache" -exec rm -rf {} + || true
 
 # Update copier template
 update_from_upstream_template:

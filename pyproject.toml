@@ -1,8 +1,7 @@
-[tool.poetry]
+[project]
 name = "funcy-pipe"
 version = "0.14.0"
 description = "If Funcy and Pipe had a baby. Decorates all Funcy methods with Pipe superpowers."
-authors = ["Michael Bianco <mike@mikebian.co>"]
 keywords = [
   "python",
   "functional-programming",
@@ -10,24 +9,34 @@ keywords = [
   "funcy",
   "data-manipulation",
 ]
-homepage = "https://github.com/iloveitaly/funcy-pipe"
-license = "MIT"
 readme = "README.md"
-packages = [{ include = "funcy_pipe" }]
-
-[tool.poetry.dependencies]
-python = "^3.8"
-funcy = "^2.0"
-
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.3.2"
-pyright = "^1.1.376"
-pytest-markdown-docs = ">=0.5.1,<0.8.0"
+requires-python = ">=3.8"
+dependencies = ["funcy>=2.0"]
+authors = [{ name = "Michael Bianco", email = "mike@mikebian.co" }]
+license = { file = "LICENSE" }
+urls = { "Repository" = "https://github.com/iloveitaly/funcy-pipe" }
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["uv_build>=0.9.0,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+# avoids the src/ directory structure
+module-root = ""
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.3",
+    "pyright[nodejs]>=1.1.380",
+    "ruff>=0.8.0",
+    "pytest-markdown-docs>=0.5.1",
+]
 
 [tool.pytest.ini_options]
 addopts = "--doctest-modules --markdown-docs"
+
+[tool.pyright]
+exclude = ["examples/", "playground/", "tmp/", ".venv/", "tests/"]
+
+[tool.ruff]
+extend-exclude = ["playground.py", "playground/"]
