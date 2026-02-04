@@ -56,6 +56,10 @@ clean:
     find . -type d -name "__pycache__" -delete || true
     find . -type d -name ".mypy_cache" -exec rm -rf {} + || true
 
+# Generate type stubs
+generate_stubs:
+    uv run python generate_stub.py
+
 # Update copier template
 update_from_upstream_template:
     uv tool run --with jinja2_shell_extension \
