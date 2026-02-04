@@ -18,10 +18,10 @@ This project fixes this pet peeve.
 pip install funcy-pipe
 ```
 
-Or, if you are using poetry:
+Or, if you are using [uv](https://github.com/astral-sh/uv):
 
-```shell
-poetry add funcy-pipe
+```bash
+uv add funcy-pipe
 ```
 
 ## Examples
