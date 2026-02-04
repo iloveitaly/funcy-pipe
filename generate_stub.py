@@ -16,9 +16,8 @@
 # stub_gen.py
 
 import inspect
-from typing import Any, Callable, get_type_hints
+from typing import Callable
 
-import typing as t
 
 
 def get_generic_signature() -> inspect.Signature:
