@@ -43,3 +43,7 @@ exclude = ["examples/", "playground/", "tmp/", ".venv/", "tests/"]
 
 [tool.ruff]
 extend-exclude = ["playground.py", "playground/"]
+
+[tool.ruff.lint]
+# do not assign a lambda expression, use a def
+ignore = ["E731"]
