@@ -17,7 +17,7 @@ license = { file = "LICENSE" }
 urls = { "Repository" = "https://github.com/iloveitaly/funcy-pipe" }
 
 [build-system]
-requires = ["uv_build>=0.9.0,<0.10.0"]
+requires = ["uv_build>=0.9.0,<0.11.0"]
 build-backend = "uv_build"
 
 [tool.uv.build-backend]
