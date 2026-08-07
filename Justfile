@@ -11,6 +11,14 @@ up:
 test:
     uv run pytest -v
 
+# Build documentation (docs deps live in the uv `docs` group, not a package extra)
+docs-build:
+    uv run --group docs sphinx-build -b html docs docs/_build/html
+
+# Serve documentation with live reload
+docs-dev:
+    uv run --group docs sphinx-autobuild docs docs/_build/html --port 8000 --watch funcy_pipe
+
 # python linting checks
 [script]
 lint FILES=".":
@@ -136,8 +144,15 @@ github_repo_permissions_create:
       -F can_approve_pull_request_reviews=true && \
     gh api "/repos/${repo_path}/actions/permissions/workflow"
 
+# Enable GitHub Pages from the gh-pages branch
+github_pages_enable:
+    repo=$(just _github_repo) && \
+    gh api --method POST "repos/$repo/pages" \
+      -f 'source[branch]=gh-pages' \
+      -f 'source[path]=/'
+
 github_repo_set_metadata:
 	gh repo edit \
 		--description "$(yq  '.project.description' pyproject.toml)" \
-		--homepage "$(yq '.project.urls.Repository' pyproject.toml)" \
+		--homepage "$(yq '.project.urls.Documentation' pyproject.toml)" \
 		--add-topic "$(yq '.project.keywords | join(",")' pyproject.toml)"
