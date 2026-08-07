@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="./">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>funcy-pipe documentation</title><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="funcy_pipe" href="autoapi/funcy_pipe/index.html" />
+      <link rel="canonical" href="https://iloveitaly.github.io/funcy-pipe/" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=168b0b94" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://iloveitaly.github.io/funcy-pipe/"/>
+  <meta property="og:title" content="Funcy with pipeline-based operators"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="#">
+      
+      
+      <strong>funcy-pipe</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="autoapi/funcy_pipe/index.html">API Reference</a></li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/iloveitaly/funcy-pipe" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><ul>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/funcy_pipe/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="autoapi/funcy_pipe/chain/index.html">funcy_pipe.chain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autoapi/funcy_pipe/funcy_extensions/index.html">funcy_pipe.funcy_extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autoapi/funcy_pipe/macro/index.html">funcy_pipe.macro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autoapi/funcy_pipe/pipe/index.html">funcy_pipe.pipe</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#">Funcy with pipeline-based operators</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+<li><a class="reference internal" href="#extras">Extras</a></li>
+<li><a class="reference internal" href="#extensions">Extensions</a></li>
+<li><a class="reference internal" href="#coming-from-ruby">Coming From Ruby?</a><ul>
+<li><a class="reference internal" href="#module-alias">Module Alias</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#inspiration">Inspiration</a></li>
+<li><a class="reference internal" href="#related-projects">Related Projects</a></li>
+<li><a class="reference internal" href="#todo">TODO</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="#"><span itemprop="name">funcy-pipe</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Funcy with pipeline-based operators</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://iloveitaly.github.io/funcy-pipe/_sources/index.md.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://iloveitaly.github.io/funcy-pipe/_sources/index.md.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://iloveitaly.github.io/funcy-pipe/_sources/index.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//iloveitaly.github.io/funcy-pipe/_sources/index.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//iloveitaly.github.io/funcy-pipe/_sources/index.md.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <p><a class="reference external" href="https://github.com/iloveitaly/funcy-pipe/releases"><img alt="Release Notes" src="https://img.shields.io/github/release/iloveitaly/funcy-pipe" /></a> <a class="reference external" href="https://pepy.tech/project/funcy-pipe"><img alt="Downloads" src="https://static.pepy.tech/badge/funcy-pipe/month" /></a> <a class="reference external" href="https://pypi.org/project/funcy-pipe"><img alt="Python Versions" src="https://img.shields.io/pypi/pyversions/funcy-pipe" /></a> <img alt="GitHub CI Status" src="https://github.com/iloveitaly/funcy-pipe/actions/workflows/build_and_publish.yml/badge.svg" /> <a class="reference external" href="https://iloveitaly.github.io/funcy-pipe/"><img alt="Docs" src="https://img.shields.io/badge/docs-GitHub%20Pages-blue" /></a> <a class="reference external" href="https://opensource.org/licenses/MIT"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a></p>
+<section id="funcy-with-pipeline-based-operators">
+<h1>Funcy with pipeline-based operators<a class="headerlink" href="#funcy-with-pipeline-based-operators" title="Link to this heading">#</a></h1>
+<p>If <a class="reference external" href="https://github.com/Suor/funcy">Funcy</a> and <a class="reference external" href="https://github.com/JulienPalard/Pipe">Pipe</a> had a baby. Deal with data transformation in python in a sane way.</p>
+<p>I love Ruby. It’s a great language and one of the things they got right was pipelined data transformation. Elixir got this
+even more right with the explicit pipeline operator <code class="docutils literal notranslate"><span class="pre">|&gt;</span></code>.</p>
+<p>However, Python is the way of the future. As I worked more with Python, it was driving me nuts that the
+data transformation options were not chainable.</p>
+<p>This project fixes this pet peeve.</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span data-line="1">pip<span class="w"> </span>install<span class="w"> </span>funcy-pipe
+</span></pre></div>
+</div>
+<p>Or, if you are using <a class="reference external" href="https://github.com/astral-sh/uv">uv</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">uv<span class="w"> </span>add<span class="w"> </span>funcy-pipe
+</span></pre></div>
+</div>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
+<p>Extract a couple key values from a sql alchemy model:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">funcy_pipe</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">fp</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">entities_from_sql_alchemy</span>
+</span><span data-line="4">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">lmap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+</span><span data-line="5">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">lmap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">r</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">omit</span><span class="p">([</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;created_at&quot;</span><span class="p">,</span> <span class="s2">&quot;updated_at&quot;</span><span class="p">]))</span>
+</span><span data-line="6">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">to_list</span>
+</span></pre></div>
+</div>
+<p>Or, you can be more fancy and use <a class="reference external" href="https://github.com/Suor/whatever">whatever</a> and <code class="docutils literal notranslate"><span class="pre">pmap</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">funcy_pipe</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">f</span>
+</span><span data-line="2"><span class="kn">import</span><span class="w"> </span><span class="nn">whatever</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">_</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="n">entities_from_sql_alchemy</span>
+</span><span data-line="5">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">lmap</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">to_dict</span><span class="p">)</span>
+</span><span data-line="6">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">omit</span><span class="p">([</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;created_at&quot;</span><span class="p">,</span> <span class="s2">&quot;updated_at&quot;</span><span class="p">]))</span>
+</span><span data-line="7">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">to_list</span>
+</span></pre></div>
+</div>
+<p>Create a map from an array of objects, ensuring the key is always an <code class="docutils literal notranslate"><span class="pre">int</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">section_map</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get_sections</span><span class="p">()</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">that</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+</span></pre></div>
+</div>
+<p>Grab the ID of a specific user:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">filter_user_id</span> <span class="o">=</span> <span class="p">(</span>
+</span><span data-line="2">  <span class="n">collaborator_map</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+</span><span data-line="3">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">email</span><span class="o">=</span><span class="n">target_user</span><span class="p">)</span>
+</span><span data-line="4">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">pluck</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+</span><span data-line="5">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+</span><span data-line="6"><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>Get distinct values from a list (in this case, github events):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">events</span> <span class="o">=</span> <span class="p">[</span>
+</span><span data-line="2">  <span class="p">{</span>
+</span><span data-line="3">    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;PushEvent&quot;</span>
+</span><span data-line="4">  <span class="p">},</span>
+</span><span data-line="5">  <span class="p">{</span>
+</span><span data-line="6">    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CommentEvent&quot;</span>
+</span><span data-line="7">  <span class="p">}</span>
+</span><span data-line="8"><span class="p">]</span>
+</span><span data-line="9">
+</span><span data-line="10"><span class="n">result</span> <span class="o">=</span> <span class="n">events</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">pluck</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+</span><span data-line="11">
+</span><span data-line="12"><span class="k">assert</span> <span class="p">[</span><span class="s2">&quot;PushEvent&quot;</span><span class="p">,</span> <span class="s2">&quot;CommentEvent&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">result</span>
+</span></pre></div>
+</div>
+<p>What if the objects are not dicts?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">filter_user_id</span> <span class="o">=</span> <span class="p">(</span>
+</span><span data-line="2">  <span class="n">collaborator_map</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+</span><span data-line="3">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">where_attr</span><span class="p">(</span><span class="n">email</span><span class="o">=</span><span class="n">target_user</span><span class="p">)</span>
+</span><span data-line="4">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">pluck_attr</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+</span><span data-line="5">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+</span><span data-line="6"><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>How about creating a dict where each value is sorted:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">data</span>
+</span><span data-line="2">  <span class="c1"># each element is a dict of city information, let&#39;s group by state</span>
+</span><span data-line="3">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="n">itemgetter</span><span class="p">(</span><span class="s2">&quot;state_name&quot;</span><span class="p">))</span>
+</span><span data-line="4">  <span class="c1"># now let&#39;s sort each value by population, which is stored as a string</span>
+</span><span data-line="5">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">walk_values</span><span class="p">(</span>
+</span><span data-line="6">    <span class="n">f</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="nb">sorted</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;population&quot;</span><span class="p">])),</span>
+</span><span data-line="7">  <span class="p">)</span>
+</span></pre></div>
+</div>
+<p>A more complicated example (<a class="reference external" href="https://github.com/iloveitaly/todoist-digest/blob/2f893709da2cf3a0f715125053af705fc3adbc4c/run.py#L151-L166">lifted from this project</a>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">comments</span> <span class="o">=</span> <span class="p">(</span>
+</span><span data-line="2">    <span class="c1"># tasks are pulled from the todoist api</span>
+</span><span data-line="3">    <span class="n">tasks</span>
+</span><span data-line="4">    <span class="c1"># get all comments for each relevant task</span>
+</span><span data-line="5">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">lmap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">task</span><span class="p">:</span> <span class="n">api</span><span class="o">.</span><span class="n">get_comments</span><span class="p">(</span><span class="n">task_id</span><span class="o">=</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+</span><span data-line="6">    <span class="c1"># each task&#39;s comments are returned as an array, let&#39;s flatten this</span>
+</span><span data-line="7">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+</span><span data-line="8">    <span class="c1"># dates are returned as strings, let&#39;s convert them to datetime objects</span>
+</span><span data-line="9">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">lmap</span><span class="p">(</span><span class="n">enrich_date</span><span class="p">)</span>
+</span><span data-line="10">    <span class="c1"># no date filter is applied by default, we don&#39;t want all comments</span>
+</span><span data-line="11">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">comment</span><span class="p">:</span> <span class="n">comment</span><span class="p">[</span><span class="s2">&quot;posted_at_date&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">last_synced_date</span><span class="p">)</span>
+</span><span data-line="12">    <span class="c1"># comments do not come with who created the comment by default, we need to hit a separate API to add this to the comment</span>
+</span><span data-line="13">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">lmap</span><span class="p">(</span><span class="n">enrich_comment</span><span class="p">)</span>
+</span><span data-line="14">    <span class="c1"># only select the comments posted by our target user</span>
+</span><span data-line="15">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">comment</span><span class="p">:</span> <span class="n">comment</span><span class="p">[</span><span class="s2">&quot;posted_by_user_id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">filter_user_id</span><span class="p">)</span>
+</span><span data-line="16">    <span class="c1"># there is no `sort` in the funcy library, so we reexport the sort built-in so it&#39;s pipe-able</span>
+</span><span data-line="17">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;posted_at_date&quot;</span><span class="p">)</span>
+</span><span data-line="18">    <span class="c1"># create a dictionary of task_id =&gt; [comments]</span>
+</span><span data-line="19">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="k">lambda</span> <span class="n">comment</span><span class="p">:</span> <span class="n">comment</span><span class="p">[</span><span class="s2">&quot;task_id&quot;</span><span class="p">])</span>
+</span><span data-line="20"><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>Want to grab the values of a list of dict keys?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">def</span><span class="w"> </span><span class="nf">add_field_name</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">keys</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+</span><span data-line="2">    <span class="k">return</span> <span class="nb">input</span> <span class="o">|</span> <span class="p">{</span>
+</span><span data-line="3">        <span class="s2">&quot;field_name&quot;</span><span class="p">:</span> <span class="p">(</span>
+</span><span data-line="4">            <span class="n">keys</span>
+</span><span data-line="5">            <span class="c1"># this is a sneaky trick: if we reference the objects method, when it&#39;s called it will contain a reference</span>
+</span><span data-line="6">            <span class="c1"># to the object</span>
+</span><span data-line="7">            <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+</span><span data-line="8">            <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">compact</span>
+</span><span data-line="9">            <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">join_str</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span>
+</span><span data-line="10">        <span class="p">)</span>
+</span><span data-line="11">    <span class="p">}</span>
+</span><span data-line="12">
+</span><span data-line="13"><span class="n">result</span> <span class="o">=</span> <span class="p">[{</span> <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span> <span class="s2">&quot;header&quot;</span><span class="p">:</span> <span class="s2">&quot;functional&quot;</span><span class="p">}]</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">rpartial</span><span class="p">(</span><span class="n">add_field_name</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="s2">&quot;header&quot;</span><span class="p">]))</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">to_list</span>
+</span><span data-line="14"><span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="p">[{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="s1">&#39;python&#39;</span><span class="p">,</span> <span class="s1">&#39;header&#39;</span><span class="p">:</span> <span class="s1">&#39;functional&#39;</span><span class="p">,</span> <span class="s1">&#39;field_name&#39;</span><span class="p">:</span> <span class="s1">&#39;python_functional&#39;</span><span class="p">}]</span>
+</span></pre></div>
+</div>
+<p>You can also easily test multiple conditions across API data (<a class="reference external" href="https://github.com/iloveitaly/github-overlord/blob/a3c0e5d0765b3748747e6721e602c0021be0c8e1/github_overlord/__init__.py#L66-L71">extracted from this project</a>)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">all_checks_successful</span> <span class="o">=</span> <span class="p">(</span>
+</span><span data-line="2">    <span class="n">last_commit</span><span class="o">.</span><span class="n">get_check_runs</span><span class="p">()</span>
+</span><span data-line="3">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">pluck_attr</span><span class="p">(</span><span class="s2">&quot;conclusion&quot;</span><span class="p">)</span>
+</span><span data-line="4">    <span class="c1"># if you pass a set into `all` each element of the set is used to build a predicate</span>
+</span><span data-line="5">    <span class="c1"># this condition tests if the &quot;conclusion&quot; attribute is either &quot;success&quot; or &quot;skipped&quot;</span>
+</span><span data-line="6">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">all</span><span class="p">({</span><span class="s2">&quot;success&quot;</span><span class="p">,</span> <span class="s2">&quot;skipped&quot;</span><span class="p">})</span>
+</span><span data-line="7"><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>Want to grab the values of a list of dict keys?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">def</span><span class="w"> </span><span class="nf">add_field_name</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">keys</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+</span><span data-line="2">    <span class="k">return</span> <span class="nb">input</span> <span class="o">|</span> <span class="p">{</span>
+</span><span data-line="3">        <span class="s2">&quot;field_name&quot;</span><span class="p">:</span> <span class="p">(</span>
+</span><span data-line="4">            <span class="n">keys</span>
+</span><span data-line="5">            <span class="c1"># this is a sneaky trick: if we reference the objects method, when it&#39;s called it will contain a reference</span>
+</span><span data-line="6">            <span class="c1"># to the object</span>
+</span><span data-line="7">            <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+</span><span data-line="8">            <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">compact</span>
+</span><span data-line="9">            <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">join_str</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span>
+</span><span data-line="10">        <span class="p">)</span>
+</span><span data-line="11">    <span class="p">}</span>
+</span><span data-line="12">
+</span><span data-line="13"><span class="n">result</span> <span class="o">=</span> <span class="p">[{</span> <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span> <span class="s2">&quot;header&quot;</span><span class="p">:</span> <span class="s2">&quot;functional&quot;</span><span class="p">}]</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">rpartial</span><span class="p">(</span><span class="n">add_field_name</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="s2">&quot;header&quot;</span><span class="p">]))</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">to_list</span>
+</span><span data-line="14"><span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="p">[{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="s1">&#39;python&#39;</span><span class="p">,</span> <span class="s1">&#39;header&#39;</span><span class="p">:</span> <span class="s1">&#39;functional&#39;</span><span class="p">,</span> <span class="s1">&#39;field_name&#39;</span><span class="p">:</span> <span class="s1">&#39;python_functional&#39;</span><span class="p">}]</span>
+</span></pre></div>
+</div>
+<p>You can also easily group dictionaries by a key (or arbitrary function):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">operator</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">result</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">}]</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">))</span>
+</span><span data-line="4"><span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="p">{</span><span class="mi">10</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Alice&#39;</span><span class="p">}],</span> <span class="mi">12</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Bob&#39;</span><span class="p">}]}</span>
+</span></pre></div>
+</div>
+</section>
+<section id="extras">
+<h2>Extras<a class="headerlink" href="#extras" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>to_list</p></li>
+<li><p>log</p></li>
+<li><p>bp. run <code class="docutils literal notranslate"><span class="pre">breakpoint()</span></code> on the input value</p></li>
+<li><p>sort</p></li>
+<li><p>exactly_one. Throw an error if the input is not exactly one element</p></li>
+<li><p>reduce</p></li>
+<li><p>pmap. Pass each element of a sequence into a pipe’d function</p></li>
+</ul>
+</section>
+<section id="extensions">
+<h2>Extensions<a class="headerlink" href="#extensions" title="Link to this heading">#</a></h2>
+<p>There <a class="reference internal" href="#funcy_pipe/funcy_extensions.py"><span class="xref myst">are some functions</span></a> which are not yet merged upstream into funcy, and may never be. You can patch <code class="docutils literal notranslate"><span class="pre">funcy</span></code> to add them using:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">funcy_pipe</span>
+</span><span data-line="2"><span class="n">funcy_pipe</span><span class="o">.</span><span class="n">patch</span><span class="p">()</span>
+</span></pre></div>
+</div>
+<p>Find the first element matching a condition (detect):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">users</span> <span class="o">=</span> <span class="p">[</span>
+</span><span data-line="2">    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s2">&quot;city&quot;</span><span class="p">:</span> <span class="s2">&quot;NYC&quot;</span><span class="p">},</span>
+</span><span data-line="3">    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;city&quot;</span><span class="p">:</span> <span class="s2">&quot;SF&quot;</span><span class="p">},</span>
+</span><span data-line="4">    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Charlie&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s2">&quot;city&quot;</span><span class="p">:</span> <span class="s2">&quot;LA&quot;</span><span class="p">}</span>
+</span><span data-line="5"><span class="p">]</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="c1"># Find first user aged 25</span>
+</span><span data-line="8"><span class="n">first_young_user</span> <span class="o">=</span> <span class="n">users</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+</span><span data-line="9"><span class="k">assert</span> <span class="n">first_young_user</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s2">&quot;city&quot;</span><span class="p">:</span> <span class="s2">&quot;NYC&quot;</span><span class="p">}</span>
+</span></pre></div>
+</div>
+</section>
+<section id="coming-from-ruby">
+<h2>Coming From Ruby?<a class="headerlink" href="#coming-from-ruby" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>uniq =&gt; distinct</p></li>
+<li><p>detect =&gt; detect or <code class="docutils literal notranslate"><span class="pre">where(some=&quot;Condition&quot;)</span> <span class="pre">|</span> <span class="pre">first</span></code> or <code class="docutils literal notranslate"><span class="pre">where_attr(some=&quot;Condition&quot;)</span> <span class="pre">|</span> <span class="pre">first</span></code></p></li>
+<li><p>inverse =&gt; complement</p></li>
+<li><p>times =&gt; repeatedly</p></li>
+</ul>
+<section id="module-alias">
+<h3>Module Alias<a class="headerlink" href="#module-alias" title="Link to this heading">#</a></h3>
+<p>Create a module alias for <code class="docutils literal notranslate"><span class="pre">funcy-pipe</span></code> to make things clean (<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">*</span></code> always irks me):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># fp.py</span>
+</span><span data-line="2"><span class="kn">from</span><span class="w"> </span><span class="nn">funcy_pipe</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="c1"># code py</span>
+</span><span data-line="5"><span class="kn">import</span><span class="w"> </span><span class="nn">fp</span>
+</span></pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="inspiration">
+<h1>Inspiration<a class="headerlink" href="#inspiration" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Elixir’s pipe operator. <code class="docutils literal notranslate"><span class="pre">array</span> <span class="pre">|&gt;</span> <span class="pre">map(fn)</span> <span class="pre">|&gt;</span> <span class="pre">filter(fn)</span></code></p></li>
+<li><p>Ruby’s enumerable library. <code class="docutils literal notranslate"><span class="pre">array.map(&amp;:fn).filter(&amp;:fn)</span></code></p></li>
+<li><p>https://pypi.org/project/funcy-chain</p></li>
+<li><p>https://github.com/JulienPalard/Pipe</p></li>
+</ul>
+</section>
+<section id="related-projects">
+<h1>Related Projects<a class="headerlink" href="#related-projects" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>https://github.com/ruancomelli/funcy-stubs</p></li>
+<li><p>https://pydash.readthedocs.io/en/latest/</p></li>
+<li><p>https://github.com/dbrattli/Expression</p></li>
+</ul>
+</section>
+<section id="todo">
+<h1>TODO<a class="headerlink" href="#todo" title="Link to this heading">#</a></h1>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> tests</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> docs for additional utils</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> fix typing threading</p></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-next">
+    <a href="autoapi/funcy_pipe/index.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">funcy_pipe</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2026, Michael Bianco</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/iloveitaly/funcy-pipe" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/design-tabs.js?v=f930bc37"></script>
+      <script src="_static/shibuya.js?v=50760d75"></script></body>
+</html>

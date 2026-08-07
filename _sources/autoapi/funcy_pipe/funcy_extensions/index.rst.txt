@@ -1,0 +1,87 @@
+funcy_pipe.funcy_extensions
+===========================
+
+.. py:module:: funcy_pipe.funcy_extensions
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   funcy_pipe.funcy_extensions.where_not
+   funcy_pipe.funcy_extensions.where_not_attr
+   funcy_pipe.funcy_extensions.where_attr
+   funcy_pipe.funcy_extensions.pluck
+   funcy_pipe.funcy_extensions.shuffled
+   funcy_pipe.funcy_extensions.sample
+   funcy_pipe.funcy_extensions.join_str
+   funcy_pipe.funcy_extensions.sort
+   funcy_pipe.funcy_extensions.reject
+   funcy_pipe.funcy_extensions.detect
+   funcy_pipe.funcy_extensions.detect_attr
+   funcy_pipe.funcy_extensions.dig
+   funcy_pipe.funcy_extensions.patch
+
+
+Module Contents
+---------------
+
+.. py:function:: where_not(mappings, **cond)
+
+   Iterates over mappings containing all pairs not in cond.
+
+
+.. py:function:: where_not_attr(objects, **cond)
+
+.. py:function:: where_attr(objects, **cond)
+
+.. py:function:: pluck(key, mappings)
+
+   Iterates over values for key, or multiple keys, in mappings.
+
+
+.. py:function:: shuffled(seq)
+
+.. py:function:: sample(seq)
+
+   Pick a random element from the array
+
+
+.. py:function:: join_str(sep, seq)
+
+.. py:function:: sort(iterable, key=None, reverse=False)
+
+.. py:function:: reject(coll, pred: Callable)
+
+.. py:function:: detect(mappings, **cond)
+
+   Find the first mapping containing all pairs in cond.
+
+
+.. py:function:: detect_attr(objects, **cond)
+
+   Find the first object having all attributes matching cond.
+
+
+.. py:function:: dig(path, data, *, default=None)
+
+   Dig into nested dict using dot-path string or list of keys.
+   Raises KeyError/TypeError if path missing and no default.
+
+   >>> dig('a.b', {'a': {'b': 1}})
+   1
+   >>> dig('a.b', {'a': {'b': 1}}, default=42)
+   1
+   >>> dig('a.x', {'a': {'b': 1}}, default=42)
+   42
+   >>> dig('a.x', {'a': {'b': 1}})
+   Traceback (most recent call last):
+   ...
+   KeyError: 'x'
+   >>> dig(['a', 'b'], {'a': {'b': 1}})
+   1
+
+
+.. py:function:: patch()
+

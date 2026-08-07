@@ -1,0 +1,18 @@
+funcy_pipe
+==========
+
+.. py:module:: funcy_pipe
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/funcy_pipe/chain/index
+   /autoapi/funcy_pipe/funcy_extensions/index
+   /autoapi/funcy_pipe/macro/index
+   /autoapi/funcy_pipe/pipe/index
+
+

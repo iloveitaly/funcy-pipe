@@ -1,0 +1,20 @@
+# funcy-pipe
+
+> funcy-pipe: Funcy methods with Pipe-style operators for chainable Python data transformation.
+
+
+2026, Michael Bianco
+
+## Pages
+
+- [Funcy with pipeline-based operators](index.html.md): [![Release Notes](https://img.shields.io/github/release/iloveitaly/funcy-pipe)](https://github.com/i...
+- [API Reference](autoapi/index.html.md): This page contains auto-generated API reference documentation <sup>[1](#f1)</sup>.
+- [funcy_pipe](autoapi/funcy_pipe/index.html.md): * [funcy_pipe.chain](chain/index.md)
+- [funcy_pipe.chain](autoapi/funcy_pipe/chain/index.html.md): Chain(a).map(lambda n: n + 1).filter(lambda n: n>2).list()
+- [funcy_pipe.pipe](autoapi/funcy_pipe/pipe/index.html.md): Adapted from:
+- [funcy_pipe.macro](autoapi/funcy_pipe/macro/index.html.md): Global is a better term for this file, but you can’t use that as a file name in python :/
+- [funcy_pipe.funcy_extensions](autoapi/funcy_pipe/funcy_extensions/index.html.md): | [`where_not`](#funcy_pipe.funcy_extensions.where_not)(mappings, \*\*cond)          | Iterates over...
+
+---
+
+For more comprehensive documentation, see [llms-full.txt](llms-full.txt)

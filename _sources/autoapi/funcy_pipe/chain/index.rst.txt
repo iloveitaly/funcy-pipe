@@ -1,0 +1,43 @@
+funcy_pipe.chain
+================
+
+.. py:module:: funcy_pipe.chain
+
+.. autoapi-nested-parse::
+
+   Chain(a).map(lambda n: n + 1).filter(lambda n: n>2).list()
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   funcy_pipe.chain.Chain
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   funcy_pipe.chain.partial_second_arg
+   funcy_pipe.chain.chain_wrap
+
+
+Module Contents
+---------------
+
+.. py:function:: partial_second_arg(func, second_arg)
+
+.. py:function:: chain_wrap(func)
+
+.. py:class:: Chain(value)
+
+   .. py:attribute:: value
+
+
+   .. py:method:: list()
+
+

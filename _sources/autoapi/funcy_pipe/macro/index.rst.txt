@@ -1,0 +1,24 @@
+funcy_pipe.macro
+================
+
+.. py:module:: funcy_pipe.macro
+
+.. autoapi-nested-parse::
+
+   Global is a better term for this file, but you can't use that as a file name in python :/
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   funcy_pipe.macro.CallableForwarder
+
+
+Module Contents
+---------------
+
+.. py:class:: CallableForwarder
+
