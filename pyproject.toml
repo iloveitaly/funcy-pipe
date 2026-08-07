@@ -14,7 +14,7 @@ requires-python = ">=3.8"
 dependencies = ["funcy>=2.0"]
 authors = [{ name = "Michael Bianco", email = "mike@mikebian.co" }]
 license = { file = "LICENSE" }
-urls = { "Repository" = "https://github.com/iloveitaly/funcy-pipe" }
+urls = { "Repository" = "https://github.com/iloveitaly/funcy-pipe", "Documentation" = "https://iloveitaly.github.io/funcy-pipe/" }
 
 [build-system]
 requires = ["uv_build>=0.9.0,<0.10.0"]
@@ -33,6 +33,19 @@ dev = [
     "pyright[nodejs]>=1.1.380",
     "ruff>=0.8.0",
     "pytest-markdown-docs>=0.5.1",
+]
+# Sphinx toolchain for local/CI docs builds — not a published package extra.
+# Markers keep resolution viable for the package's broader requires-python (>=3.8);
+# docs CI/local builds use a modern Python via mise.
+docs = [
+    "sphinx>=7.1.2; python_full_version >= '3.10'",
+    "shibuya; python_full_version >= '3.10'",
+    "myst-parser>=2.0.0; python_full_version >= '3.10'",
+    "sphinx-design>=0.5.0; python_full_version >= '3.10'",
+    "sphinx-copybutton>=0.5.2; python_full_version >= '3.10'",
+    "sphinx-autobuild; python_full_version >= '3.10'",
+    "sphinx-autoapi; python_full_version >= '3.10'",
+    "sphinx-llm; python_full_version >= '3.10'",
 ]
 
 [tool.pytest.ini_options]
