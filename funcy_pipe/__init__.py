@@ -98,7 +98,7 @@ def exactly_one(comprehension):
     # TODO detect if we are working with a generator/iterator and maybe use first?
 
     if len(comprehension) != 1:
-        raise Exception("Expected to find exactly one matching item")
+        raise ValueError("Expected to find exactly one matching item")
 
     return comprehension[0]
 

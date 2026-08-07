@@ -5,15 +5,17 @@ extend-exclude = [
     ".copier",
     "tmp",
     "docs",
+    ".github",
 ]
 force-exclude = true
 target-version = "py38"
 
 [lint]
 # Add rules: isort (I), flake8-implicit-str-concat (ISC), pyupgrade (UP), flake8-comprehensions (C4), flake8-bugbear (B)
+# Ruff 0.16 expanded defaults; keep these explicit for clarity / older mental model.
 extend-select = ["I", "ISC", "UP", "C4", "B"]
-# do not assign a lambda expression, use a def — kept for pipe-style helpers
-ignore = ["E731"]
+# pipe-style helpers intentionally assign lambdas; bp() intentionally uses breakpoint()
+ignore = ["E731", "T100"]
 
 [lint.isort]
 section-order = [
@@ -28,3 +30,7 @@ section-order = [
 
 [lint.isort.sections]
 tests = ["tests"]
+
+# Do not reformat Markdown/README examples (markdown fence formatting is new in 0.16)
+[format]
+exclude = ["**/*.md"]
