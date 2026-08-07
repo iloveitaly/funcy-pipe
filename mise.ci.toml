@@ -1,4 +1,0 @@
-# CI-only mise config (loaded when MISE_ENV=ci)
-# Older CPython builds (e.g. 3.8) lack GitHub artifact attestations.
-[settings]
-python.github_attestations = false
