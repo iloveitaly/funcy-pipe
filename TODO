@@ -1,5 +1,5 @@
 - [ ] need some sort of exists(): `paid_ticket_orders | fp.pluck("stripe_payment_intent_id") | fp.compact()`
-- [ ] use new python package template
+- [x] use new python package template
 - [ ] https://github.com/Suor/funcy/issues/148
 - [ ] there are some duplicate methods in __init__ that should be removed now that we have extensions
 - [ ] automated documentation?

@@ -1,11 +1,12 @@
+import random
 from functools import reduce
 from operator import getitem, itemgetter
-import random
 from typing import Callable
 
 import funcy as f
-import funcy_pipe as fp
 from funcy import none
+
+import funcy_pipe as fp
 from funcy_pipe.pipe import PipeFirst, PipeSecond
 
 
@@ -65,7 +66,7 @@ fp.shuffled = PipeFirst(shuffled)
 # TODO propose as funcy addition
 def sample(seq):
     "Pick a random element from the array"
-    if not hasattr(seq, '__len__'):
+    if not hasattr(seq, "__len__"):
         # seq doesn't support random.choice (likely generator, filter, etc.)
         # Convert to list
         seq = list(seq)
@@ -90,7 +91,9 @@ def sort(iterable, key=None, reverse=False):
     if key is not None and type(key) is str:
         key = f.rpartial(f.get_in, [key])
 
-    return sorted(iterable, key=key, reverse=reverse)
+    if key is None:
+        return sorted(iterable, reverse=reverse)
+    return sorted(iterable, key=key, reverse=reverse)  # pyright: ignore[reportArgumentType, reportCallIssue]
 
 
 fp.sort = PipeFirst(sort)
@@ -162,7 +165,7 @@ def patch():
         """
         setattr(f, func.__name__, func)
         f.__all__.append(func.__name__)
-        fp.__all__.append(func.__name__)
+        fp.__all__.append(func.__name__)  # pyright: ignore[reportAttributeAccessIssue]
 
     f.lmap(
         add_to_module,

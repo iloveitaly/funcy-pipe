@@ -17,7 +17,7 @@ license = { file = "LICENSE" }
 urls = { "Repository" = "https://github.com/iloveitaly/funcy-pipe", "Documentation" = "https://iloveitaly.github.io/funcy-pipe/" }
 
 [build-system]
-requires = ["uv_build>=0.9.0,<0.10.0"]
+requires = ["uv_build>=0.11.0,<0.12"]
 build-backend = "uv_build"
 
 [tool.uv.build-backend]
@@ -29,9 +29,13 @@ git = "https://github.com/Suor/funcy.git"
 
 [dependency-groups]
 dev = [
-    "pytest>=8.3.3",
-    "pyright[nodejs]>=1.1.380",
-    "ruff>=0.8.0",
+    "pytest>=8.3.4",
+    "pyright[nodejs]>=1.1.408",
+    "ruff>=0.15.0",
+    # coverage stack needs modern Python; package still supports 3.8+ in CI matrix
+    "coverage>=7.13.4; python_full_version >= '3.10'",
+    "pytest-cov>=7.0.0; python_full_version >= '3.10'",
+    "covdefaults>=2.3.0; python_full_version >= '3.10'",
     "pytest-markdown-docs>=0.5.1",
 ]
 # Sphinx toolchain for local/CI docs builds — not a published package extra.
@@ -48,15 +52,17 @@ docs = [
     "sphinx-llm; python_full_version >= '3.10'",
 ]
 
+[tool.pyright]
+exclude = ["examples/", "playground/", "tmp/", ".venv/", "tests/", "docs/"]
+
 [tool.pytest.ini_options]
+# Coverage flags omitted from default addopts so the 3.8/3.9 CI matrix stays green.
+# Use `just test-cov` (Python >= 3.10) for coverage.
 addopts = "--doctest-modules --markdown-docs"
 
-[tool.pyright]
-exclude = ["examples/", "playground/", "tmp/", ".venv/", "tests/"]
+[tool.coverage.run]
+plugins = ["covdefaults"]
+source = ["funcy_pipe"]
 
-[tool.ruff]
-extend-exclude = ["playground.py", "playground/"]
-
-[tool.ruff.lint]
-# do not assign a lambda expression, use a def
-ignore = ["E731"]
+[tool.coverage.report]
+fail_under = 50

@@ -1,3 +1,5 @@
+import pytest
+
 import funcy_pipe as fp
 
 
@@ -8,11 +10,12 @@ def test_sample_basic():
 
 def test_sample_with_generator():
     """Test sample function with generator objects"""
+
     def gen():
         yield 1
-        yield 2  
+        yield 2
         yield 3
-    
+
     result = gen() | fp.sample()
     assert result in [1, 2, 3]
 
@@ -25,7 +28,8 @@ def test_sample_with_filter():
 
 def test_sample_with_map():
     """Test sample function with map objects"""
-    result = map(lambda x: x * 2, [1, 2, 3]) | fp.sample()
+    # Intentionally use map() — sample must accept map objects, not just generators
+    result = map(lambda x: x * 2, [1, 2, 3]) | fp.sample()  # noqa: C417
     assert result in [2, 4, 6]
 
 
@@ -38,26 +42,21 @@ def test_sample_with_tuple():
 def test_sample_with_string():
     """Test sample function with strings (should use original path)"""
     result = "xyz" | fp.sample()
-    assert result in ['x', 'y', 'z']
+    assert result in ["x", "y", "z"]
 
 
 def test_sample_empty_generator():
     """Test sample function with empty generator should raise IndexError"""
+
     def empty_gen():
         return
         yield  # This will never execute
-    
-    try:
+
+    with pytest.raises(IndexError):
         empty_gen() | fp.sample()
-        assert False, "Expected IndexError for empty generator"
-    except IndexError:
-        pass  # This is expected behavior
 
 
 def test_sample_empty_filter():
     """Test sample function with empty filter should raise IndexError"""
-    try:
+    with pytest.raises(IndexError):
         filter(lambda x: x > 10, [1, 2, 3]) | fp.sample()
-        assert False, "Expected IndexError for empty filter"
-    except IndexError:
-        pass  # This is expected behavior

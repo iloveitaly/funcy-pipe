@@ -1,4 +1,5 @@
 import functools
+
 import funcy
 
 from .funcy_extensions import patch
@@ -20,11 +21,12 @@ PIPE_FIRST_OMISSIONS = [
     "dec",
     "even",
     "complement",
-    "get_in"
+    "get_in",
 ]
 
 # hand crafted things that will never be piped
 EXCLUSIONS = ["ContextDecorator", "ErrorRateExceeded", "LazyObject"]
+
 
 def export(func):
     globals()["__all__"].append(func.__name__)
@@ -55,9 +57,7 @@ def apply_decorator_and_export(module):
             continue
 
         decorated_functions[name] = (
-            PipeFirst(obj)
-            if name in PIPE_FIRST_EXCEPTIONS
-            else PipeSecond(obj)
+            PipeFirst(obj) if name in PIPE_FIRST_EXCEPTIONS else PipeSecond(obj)
         )
 
         # add function to the module
