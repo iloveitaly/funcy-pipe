@@ -1,3 +1,4 @@
+- [ ] `to_list` is unnecessary here `return payment_intents | fp.where_attr(status= "succeeded") | fp.to_list() |fp.sample()`
 - [ ] need some sort of exists(): `paid_ticket_orders | fp.pluck("stripe_payment_intent_id") | fp.compact()`
 - [ ] use new python package template
 - [ ] https://github.com/Suor/funcy/issues/148
