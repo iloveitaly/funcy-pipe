@@ -7,3 +7,7 @@ direnv = "latest"
 
 [settings]
 python.uv_venv_auto = "create|source"
+
+# Justfile recipes use zsh; bootstrap installs it on Debian/Ubuntu (e.g. GHA).
+[bootstrap.packages]
+"apt:zsh" = "latest"
