@@ -25,6 +25,18 @@
 
 
 
+## [0.14.1](https://github.com/iloveitaly/funcy-pipe/compare/v0.14.0...v0.14.1) (2026-08-12)
+
+
+### Bug Fixes
+
+* dedupe __all__ in generate_stub and linter-safe getattr ([4a0faf3](https://github.com/iloveitaly/funcy-pipe/commit/4a0faf39f07800c13f2265119e1dee8a9bd24b55))
+
+
+### Documentation
+
+* update install instructions to use uv over poetry ([41e84cd](https://github.com/iloveitaly/funcy-pipe/commit/41e84cd22f8c98d5468a96fc3fe136e1ea27644a))
+
 ## [0.11.2](https://github.com/iloveitaly/funcy-pipe/compare/v0.11.1...v0.11.2) (2025-09-10)
 
 
@@ -40,6 +52,3 @@
 ### Bug Fixes
 
 * more pipe omissions ([61a7db6](https://github.com/iloveitaly/funcy-pipe/commit/61a7db6656a80671cb4fb8956c6854fc418458c3))
-
-
-
