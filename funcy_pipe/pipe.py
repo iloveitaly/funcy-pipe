@@ -44,13 +44,20 @@ class PipeFirst:
             # pass the argument collected from __ror__ to the first argument of the function
             lambda iterable, *args2, **kwargs2: self.function(
                 # args & kwargs are empty here in our case
-                iterable, *args, *args2, **kwargs, **kwargs2
+                iterable,
+                *args,
+                *args2,
+                **kwargs,
+                **kwargs2,
             )
         )
 
     def __repr__(self):
         # Customize the representation to include the function name
-        return f"<PipeFirst wrapping {self.__name__} at {hex(id(self))}>"
+        name = getattr(
+            self, "__name__", getattr(self.function, "__name__", repr(self.function))
+        )
+        return f"<PipeFirst wrapping {name} at {hex(id(self))}>"
 
 
 class PipeSecond:
@@ -90,4 +97,7 @@ class PipeSecond:
 
     def __repr__(self):
         # Customize the representation to include the function name
-        return f"<PipeSecond wrapping {self.__name__} at {hex(id(self))}>"
+        name = getattr(
+            self, "__name__", getattr(self.function, "__name__", repr(self.function))
+        )
+        return f"<PipeSecond wrapping {name} at {hex(id(self))}>"

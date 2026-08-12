@@ -24,6 +24,9 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: jdx/mise-action@v4
+        with:
+          bootstrap: true
+          bootstrap_args: "--yes --update"
       - uses: iloveitaly/github-action-direnv-load-and-mask@master
       - run: uv sync
       - run: just lint
@@ -31,6 +34,7 @@ jobs:
   matrix-test:
     needs: lint
     strategy:
+      fail-fast: false
       matrix:
         os:
           - ubuntu-latest
@@ -40,16 +44,24 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: jdx/mise-action@v4
+        with:
+          bootstrap: true
+          bootstrap_args: "--yes --update"
+      # Older CPython builds (e.g. 3.8) lack GitHub artifact attestations.
       - run: mise use python@${{ matrix.python-version }}
+        env:
+          MISE_PYTHON_GITHUB_ATTESTATIONS: false
       - uses: iloveitaly/github-action-direnv-load-and-mask@master
       - run: uv sync
-      - run: uv run pytest
+      - run: just test
 
   release-please:
     needs: matrix-test
     runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+      version: ${{ steps.release.outputs.version }}
     permissions:
       contents: write
       issues: write
@@ -72,6 +84,9 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: jdx/mise-action@v4
+        with:
+          bootstrap: true
+          bootstrap_args: "--yes --update"
       - uses: iloveitaly/github-action-direnv-load-and-mask@master
       - run: uv sync
       - run: uv build

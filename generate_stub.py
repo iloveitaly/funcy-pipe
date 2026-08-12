@@ -89,7 +89,7 @@ def generate_pyi(module_name: str):
     # Use dict.fromkeys to deduplicate while preserving order
     import funcy_pipe
 
-    all_objects = list(dict.fromkeys(funcy_pipe.__all__))
+    all_objects = list(dict.fromkeys(funcy_pipe.__all__))  # pyright: ignore[reportAttributeAccessIssue]
 
     extension_names = discover_extensions()
     import funcy_pipe.funcy_extensions as extensions
