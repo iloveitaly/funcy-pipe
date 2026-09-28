@@ -1,11 +1,12 @@
+import random
 from functools import reduce
 from operator import getitem, itemgetter
-import random
 from typing import Callable
 
 import funcy as f
-import funcy_pipe as fp
 from funcy import none
+
+import funcy_pipe as fp
 from funcy_pipe.pipe import PipeFirst, PipeSecond
 
 
@@ -65,7 +66,7 @@ fp.shuffled = PipeFirst(shuffled)
 # TODO propose as funcy addition
 def sample(seq):
     "Pick a random element from the array"
-    if not hasattr(seq, '__len__'):
+    if not hasattr(seq, "__len__"):
         # seq doesn't support random.choice (likely generator, filter, etc.)
         # Convert to list
         seq = list(seq)
