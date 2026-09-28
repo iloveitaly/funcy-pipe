@@ -7,20 +7,22 @@ import funcy
 # TODO autogen types for this too.
 # TODO need list, set, etc methods for this
 
+
 def partial_second_arg(func, second_arg):
     return lambda a, *args: func(a, second_arg, *args)
+
 
 def chain_wrap(func):
     return lambda *args: Chain(func(*args))
 
+
 class Chain:
     def __init__(self, value):
         self.value = value
-      
-    
+
     def list(self):
         return list(self.value)
-    
+
     def __getattr__(self, name):
         "forward method calls to the associated method"
 
@@ -29,8 +31,11 @@ class Chain:
         if callable(attr):
             # TODO need to the first/second position arugment thing here too
             return chain_wrap(partial_second_arg(attr, self.value))
-        
-        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
+
+        raise AttributeError(
+            f"'{self.__class__.__name__}' object has no attribute '{name}'"
+        )
+
 
 # Usage:
 # f = Forwarder()

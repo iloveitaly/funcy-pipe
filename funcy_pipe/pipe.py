@@ -44,7 +44,11 @@ class PipeFirst:
             # pass the argument collected from __ror__ to the first argument of the function
             lambda iterable, *args2, **kwargs2: self.function(
                 # args & kwargs are empty here in our case
-                iterable, *args, *args2, **kwargs, **kwargs2
+                iterable,
+                *args,
+                *args2,
+                **kwargs,
+                **kwargs2,
             )
         )
 

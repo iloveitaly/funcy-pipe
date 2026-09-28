@@ -59,24 +59,17 @@ Grab the ID of a specific user:
 
 ```python notest
 filter_user_id = (
-  collaborator_map().values()
-  | fp.where(email=target_user)
-  | fp.pluck("id")
-  | fp.first()
+    collaborator_map().values()
+    | fp.where(email=target_user)
+    | fp.pluck("id")
+    | fp.first()
 )
 ```
 
 Get distinct values from a list (in this case, github events):
 
 ```python
-events = [
-  {
-    "type": "PushEvent"
-  },
-  {
-    "type": "CommentEvent"
-  }
-]
+events = [{"type": "PushEvent"}, {"type": "CommentEvent"}]
 
 result = events | fp.pluck("type") | fp.distinct() | fp.to_list()
 
@@ -87,10 +80,10 @@ What if the objects are not dicts?
 
 ```python notest
 filter_user_id = (
-  collaborator_map().values()
-  | fp.where_attr(email=target_user)
-  | fp.pluck_attr("id")
-  | fp.first()
+    collaborator_map().values()
+    | fp.where_attr(email=target_user)
+    | fp.pluck_attr("id")
+    | fp.first()
 )
 ```
 
@@ -146,8 +139,15 @@ def add_field_name(input: dict, keys: list[str]) -> dict:
         )
     }
 
-result = [{ "category": "python", "header": "functional"}] | fp.map(fp.rpartial(add_field_name, ["category", "header"])) | fp.to_list
-assert result == [{'category': 'python', 'header': 'functional', 'field_name': 'python_functional'}]
+
+result = (
+    [{"category": "python", "header": "functional"}]
+    | fp.map(fp.rpartial(add_field_name, ["category", "header"]))
+    | fp.to_list
+)
+assert result == [
+    {"category": "python", "header": "functional", "field_name": "python_functional"}
+]
 ```
 
 You can also easily test multiple conditions across API data ([extracted from this project](https://github.com/iloveitaly/github-overlord/blob/a3c0e5d0765b3748747e6721e602c0021be0c8e1/github_overlord/__init__.py#L66-L71))
@@ -177,8 +177,15 @@ def add_field_name(input: dict, keys: list[str]) -> dict:
         )
     }
 
-result = [{ "category": "python", "header": "functional"}] | fp.map(fp.rpartial(add_field_name, ["category", "header"])) | fp.to_list
-assert result == [{'category': 'python', 'header': 'functional', 'field_name': 'python_functional'}]
+
+result = (
+    [{"category": "python", "header": "functional"}]
+    | fp.map(fp.rpartial(add_field_name, ["category", "header"]))
+    | fp.to_list
+)
+assert result == [
+    {"category": "python", "header": "functional", "field_name": "python_functional"}
+]
 ```
 
 You can also easily group dictionaries by a key (or arbitrary function):
@@ -186,8 +193,10 @@ You can also easily group dictionaries by a key (or arbitrary function):
 ```python
 import operator
 
-result = [{"age": 10, "name": "Alice"}, {"age": 12, "name": "Bob"}] | fp.group_by(operator.itemgetter("age"))
-assert result == {10: [{'age': 10, 'name': 'Alice'}], 12: [{'age': 12, 'name': 'Bob'}]}
+result = [{"age": 10, "name": "Alice"}, {"age": 12, "name": "Bob"}] | fp.group_by(
+    operator.itemgetter("age")
+)
+assert result == {10: [{"age": 10, "name": "Alice"}], 12: [{"age": 12, "name": "Bob"}]}
 ```
 
 ## Extras
@@ -206,6 +215,7 @@ There [are some functions](funcy_pipe/funcy_extensions.py) which are not yet mer
 
 ```python
 import funcy_pipe
+
 funcy_pipe.patch()
 ```
 
@@ -215,7 +225,7 @@ Find the first element matching a condition (detect):
 users = [
     {"name": "Alice", "age": 25, "city": "NYC"},
     {"name": "Bob", "age": 30, "city": "SF"},
-    {"name": "Charlie", "age": 25, "city": "LA"}
+    {"name": "Charlie", "age": 25, "city": "LA"},
 ]
 
 # Find first user aged 25
