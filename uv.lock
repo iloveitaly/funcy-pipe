@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = ">=3.8"
 resolution-markers = [
     "python_full_version >= '3.12'",
@@ -906,7 +906,7 @@ wheels = [
 
 [[package]]
 name = "sphinx-autoapi"
-version = "3.8.0"
+version = "3.9.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "astroid" },
@@ -915,9 +915,9 @@ dependencies = [
     { name = "sphinx", version = "8.1.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "sphinx", version = "8.2.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/f8/25/386d851320bc306e9d7d41b8cecf113f638e205a99595c481c146622de94/sphinx_autoapi-3.8.0.tar.gz", hash = "sha256:9f8ac7d43baf28a0831ac0e392fab6a095b875af07e52d135a5f716cc3cf1142", size = 58418, upload-time = "2026-03-08T03:49:52.931Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/4b/e8/12412b8c25b7e22fc6677ce84aceb278e856a688478e0a3c6eb211281c75/sphinx_autoapi-3.9.0.tar.gz", hash = "sha256:0b2a47beac401c5fe437fbcd41c650c6cdc072234e576f56ef04456805bddabf", size = 61311, upload-time = "2026-10-31T03:00:41.075Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/2f/3a/8923a543fa2422d32be4c5311f488e4f275acde263c811e4d5d22bb544cb/sphinx_autoapi-3.8.0-py3-none-any.whl", hash = "sha256:245aefdeab85609ae4aa3576b0d99f69676aa6333dda438761bd125755b3c42d", size = 35994, upload-time = "2026-03-08T03:49:51.383Z" },
+    { url = "https://files.pythonhosted.org/packages/3a/c4/d08333f57470065ca1e551d907f7cdd7ee873da436f6f352b773276e7720/sphinx_autoapi-3.9.0-py3-none-any.whl", hash = "sha256:8ecba31815322b00e9fb01973c210ba651522d25f92705a4384fd6c429c5a28f", size = 36448, upload-time = "2026-10-31T03:00:39.818Z" },
 ]
 
 [[package]]
