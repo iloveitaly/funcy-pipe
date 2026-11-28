@@ -22,8 +22,8 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: jdx/mise-action@v4
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5
       - uses: iloveitaly/github-action-direnv-load-and-mask@master
       - run: uv sync
       - run: just lint
@@ -38,15 +38,20 @@ jobs:
         python-version: ["3.14", "3.13", "3.12", "3.11", "3.10", "3.9", "3.8"]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v6
-      - uses: jdx/mise-action@v4
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5
       - run: mise use python@${{ matrix.python-version }}
+        env:
+          # python-build-standalone 3.8.20 publishes no GitHub artifact attestation.
+          MISE_PYTHON_GITHUB_ATTESTATIONS: ${{ matrix.python-version == '3.8' && 'false' || 'true' }}
       - uses: iloveitaly/github-action-direnv-load-and-mask@master
       - run: uv sync
       - run: uv run pytest
 
   release-please:
     needs: matrix-test
+    # Dependabot pull requests should not open a release PR or publish.
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
@@ -56,7 +61,7 @@ jobs:
       # NOTE this permission requires configuration to be set on the repo, check `just github_repo_permissions_create`
       pull-requests: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: googleapis/release-please-action@v5
         id: release
         with:
@@ -70,8 +75,8 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - uses: actions/checkout@v6
-      - uses: jdx/mise-action@v4
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5
       - uses: iloveitaly/github-action-direnv-load-and-mask@master
       - run: uv sync
       - run: uv build

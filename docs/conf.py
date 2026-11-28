@@ -1,8 +1,9 @@
-from datetime import UTC, datetime
+# datetime.UTC arrived in 3.11; the test matrix still runs 3.8–3.10.
+from datetime import datetime, timezone
 
 # 1. Basic Project Info
 project = "funcy-pipe"
-copyright = f"{datetime.now(UTC).year}, Michael Bianco"
+copyright = f"{datetime.now(timezone.utc).year}, Michael Bianco"
 author = "Michael Bianco"
 
 # 2. Extensions
