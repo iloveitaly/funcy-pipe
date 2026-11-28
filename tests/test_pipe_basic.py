@@ -1,9 +1,9 @@
 import types
 
+import funcy as f
 import pytest
 
 import funcy_pipe as fp
-import funcy as f
 from funcy_pipe import funcy_extensions
 from funcy_pipe.pipe import PipeFirst
 

@@ -30,6 +30,9 @@ class PipeFirst:
     [2, 4, 6]
     """
 
+    # update_wrapper copies the wrapped callable's __name__ onto the instance.
+    __name__: str
+
     def __init__(self, function):
         self.function = function
         functools.update_wrapper(self, function)
@@ -44,7 +47,11 @@ class PipeFirst:
             # pass the argument collected from __ror__ to the first argument of the function
             lambda iterable, *args2, **kwargs2: self.function(
                 # args & kwargs are empty here in our case
-                iterable, *args, *args2, **kwargs, **kwargs2
+                iterable,
+                *args,
+                *args2,
+                **kwargs,
+                **kwargs2,
             )
         )
 
@@ -73,6 +80,9 @@ class PipeSecond:
     >>> list([1, 2, 3] | select(lambda x: x * 2))
     [2, 4, 6]
     """
+
+    # update_wrapper copies the wrapped callable's __name__ onto the instance.
+    __name__: str
 
     def __init__(self, function):
         self.function = function

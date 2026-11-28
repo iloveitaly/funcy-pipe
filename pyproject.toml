@@ -17,7 +17,7 @@ license = { file = "LICENSE" }
 urls = { "Repository" = "https://github.com/iloveitaly/funcy-pipe", "Documentation" = "https://iloveitaly.github.io/funcy-pipe/" }
 
 [build-system]
-requires = ["uv_build>=0.9.0,<0.10.0"]
+requires = ["uv_build>=0.9.0,<0.14"]
 build-backend = "uv_build"
 
 [tool.uv.build-backend]
@@ -50,6 +50,19 @@ docs = [
 
 [tool.pytest.ini_options]
 addopts = "--doctest-modules --markdown-docs"
+# Sphinx writes markdown into docs/_build; those fences are not tests.
+norecursedirs = [
+    "*.egg",
+    ".*",
+    "_darcs",
+    "build",
+    "_build",
+    "CVS",
+    "dist",
+    "node_modules",
+    "venv",
+    "{arch}",
+]
 
 [tool.pyright]
 exclude = ["examples/", "playground/", "tmp/", ".venv/", "tests/"]

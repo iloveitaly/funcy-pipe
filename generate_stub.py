@@ -89,7 +89,9 @@ def generate_pyi(module_name: str):
     # Use dict.fromkeys to deduplicate while preserving order
     import funcy_pipe
 
-    all_objects = list(dict.fromkeys(funcy_pipe.__all__))
+    # __all__ is filled in at import time and is not declared on the generated stub.
+    exported = funcy_pipe.__all__  # pyright: ignore[reportAttributeAccessIssue]
+    all_objects = list(dict.fromkeys(exported))
 
     extension_names = discover_extensions()
     import funcy_pipe.funcy_extensions as extensions
