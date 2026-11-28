@@ -41,6 +41,9 @@ jobs:
       - uses: actions/checkout@v7
       - uses: jdx/mise-action@v5
       - run: mise use python@${{ matrix.python-version }}
+        env:
+          # python-build-standalone 3.8.20 publishes no GitHub artifact attestation.
+          MISE_PYTHON_GITHUB_ATTESTATIONS: ${{ matrix.python-version == '3.8' && 'false' || 'true' }}
       - uses: iloveitaly/github-action-direnv-load-and-mask@master
       - run: uv sync
       - run: uv run pytest
