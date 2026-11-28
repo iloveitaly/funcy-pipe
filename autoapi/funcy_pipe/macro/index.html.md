@@ -5,7 +5,7 @@ Global is a better term for this file, but you can’t use that as a file name i
 ## Classes
 
 | [`CallableForwarder`](#funcy_pipe.macro.CallableForwarder)   |    |
-|--------------------------------------------------------------|----|
+|----------------------------------------------------------------------|----|
 
 ## Module Contents
 

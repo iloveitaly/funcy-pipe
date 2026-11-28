@@ -61,24 +61,17 @@ Grab the ID of a specific user:
 
 ```python
 filter_user_id = (
-  collaborator_map().values()
-  | fp.where(email=target_user)
-  | fp.pluck("id")
-  | fp.first()
+    collaborator_map().values()
+    | fp.where(email=target_user)
+    | fp.pluck("id")
+    | fp.first()
 )
 ```
 
 Get distinct values from a list (in this case, github events):
 
 ```python
-events = [
-  {
-    "type": "PushEvent"
-  },
-  {
-    "type": "CommentEvent"
-  }
-]
+events = [{"type": "PushEvent"}, {"type": "CommentEvent"}]
 
 result = events | fp.pluck("type") | fp.distinct() | fp.to_list()
 
@@ -89,10 +82,10 @@ What if the objects are not dicts?
 
 ```python
 filter_user_id = (
-  collaborator_map().values()
-  | fp.where_attr(email=target_user)
-  | fp.pluck_attr("id")
-  | fp.first()
+    collaborator_map().values()
+    | fp.where_attr(email=target_user)
+    | fp.pluck_attr("id")
+    | fp.first()
 )
 ```
 
@@ -136,8 +129,9 @@ comments = (
 Want to grab the values of a list of dict keys?
 
 ```python
-def add_field_name(input: dict, keys: list[str]) -> dict:
-    return input | {
+def add_field_name(input, keys):
+    return {
+        **input,
         "field_name": (
             keys
             # this is a sneaky trick: if we reference the objects method, when it's called it will contain a reference
@@ -145,11 +139,18 @@ def add_field_name(input: dict, keys: list[str]) -> dict:
             | fp.map(input.get)
             | fp.compact
             | fp.join_str("_")
-        )
+        ),
     }
 
-result = [{ "category": "python", "header": "functional"}] | fp.map(fp.rpartial(add_field_name, ["category", "header"])) | fp.to_list
-assert result == [{'category': 'python', 'header': 'functional', 'field_name': 'python_functional'}]
+
+result = (
+    [{"category": "python", "header": "functional"}]
+    | fp.map(fp.rpartial(add_field_name, ["category", "header"]))
+    | fp.to_list
+)
+assert result == [
+    {"category": "python", "header": "functional", "field_name": "python_functional"}
+]
 ```
 
 You can also easily test multiple conditions across API data ([extracted from this project](https://github.com/iloveitaly/github-overlord/blob/a3c0e5d0765b3748747e6721e602c0021be0c8e1/github_overlord/__init__.py#L66-L71))
@@ -167,8 +168,9 @@ all_checks_successful = (
 Want to grab the values of a list of dict keys?
 
 ```python
-def add_field_name(input: dict, keys: list[str]) -> dict:
-    return input | {
+def add_field_name(input, keys):
+    return {
+        **input,
         "field_name": (
             keys
             # this is a sneaky trick: if we reference the objects method, when it's called it will contain a reference
@@ -176,11 +178,18 @@ def add_field_name(input: dict, keys: list[str]) -> dict:
             | fp.map(input.get)
             | fp.compact
             | fp.join_str("_")
-        )
+        ),
     }
 
-result = [{ "category": "python", "header": "functional"}] | fp.map(fp.rpartial(add_field_name, ["category", "header"])) | fp.to_list
-assert result == [{'category': 'python', 'header': 'functional', 'field_name': 'python_functional'}]
+
+result = (
+    [{"category": "python", "header": "functional"}]
+    | fp.map(fp.rpartial(add_field_name, ["category", "header"]))
+    | fp.to_list
+)
+assert result == [
+    {"category": "python", "header": "functional", "field_name": "python_functional"}
+]
 ```
 
 You can also easily group dictionaries by a key (or arbitrary function):
@@ -188,8 +197,10 @@ You can also easily group dictionaries by a key (or arbitrary function):
 ```python
 import operator
 
-result = [{"age": 10, "name": "Alice"}, {"age": 12, "name": "Bob"}] | fp.group_by(operator.itemgetter("age"))
-assert result == {10: [{'age': 10, 'name': 'Alice'}], 12: [{'age': 12, 'name': 'Bob'}]}
+result = [{"age": 10, "name": "Alice"}, {"age": 12, "name": "Bob"}] | fp.group_by(
+    operator.itemgetter("age")
+)
+assert result == {10: [{"age": 10, "name": "Alice"}], 12: [{"age": 12, "name": "Bob"}]}
 ```
 
 ## Extras
@@ -208,6 +219,7 @@ There [are some functions]() which are not yet merged upstream into funcy, and m
 
 ```python
 import funcy_pipe
+
 funcy_pipe.patch()
 ```
 
@@ -217,7 +229,7 @@ Find the first element matching a condition (detect):
 users = [
     {"name": "Alice", "age": 25, "city": "NYC"},
     {"name": "Bob", "age": 30, "city": "SF"},
-    {"name": "Charlie", "age": 25, "city": "LA"}
+    {"name": "Charlie", "age": 25, "city": "LA"},
 ]
 
 # Find first user aged 25
@@ -264,34 +276,7 @@ import fp
 - <input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> fix typing threading
 
 
-# index.html.md
-
-# API Reference
-
-This page contains auto-generated API reference documentation <sup>[1](#f1)</sup>.
-
-* [funcy_pipe](funcy_pipe/index.md)
-  * [funcy_pipe.chain](funcy_pipe/chain/index.md)
-  * [funcy_pipe.funcy_extensions](funcy_pipe/funcy_extensions/index.md)
-  * [funcy_pipe.macro](funcy_pipe/macro/index.md)
-  * [funcy_pipe.pipe](funcy_pipe/pipe/index.md)
-
-* <a id='f1'>**[1]**</a> Created with [sphinx-autoapi](https://github.com/readthedocs/sphinx-autoapi)
-
-
-# index.html.md
-
-# funcy_pipe
-
-## Submodules
-
-* [funcy_pipe.chain](chain/index.md)
-* [funcy_pipe.funcy_extensions](funcy_extensions/index.md)
-* [funcy_pipe.macro](macro/index.md)
-* [funcy_pipe.pipe](pipe/index.md)
-
-
-# index.html.md
+# autoapi/funcy_pipe/chain/index.html.md
 
 # funcy_pipe.chain
 
@@ -299,14 +284,14 @@ Chain(a).map(lambda n: n + 1).filter(lambda n: n>2).list()
 
 ## Classes
 
-| [`Chain`](#funcy_pipe.chain.Chain)   |    |
-|--------------------------------------|----|
+| [`Chain`](autoapi/funcy_pipe/chain/index.html.md#funcy_pipe.chain.Chain)   |    |
+|----------------------------------------------------------|----|
 
 ## Functions
 
-| [`partial_second_arg`](#funcy_pipe.chain.partial_second_arg)(func, second_arg)   |    |
-|----------------------------------------------------------------------------------|----|
-| [`chain_wrap`](#funcy_pipe.chain.chain_wrap)(func)                               |    |
+| [`partial_second_arg`](autoapi/funcy_pipe/chain/index.html.md#funcy_pipe.chain.partial_second_arg)(func, second_arg)   |    |
+|-----------------------------------------------------------------------------------------|----|
+| [`chain_wrap`](autoapi/funcy_pipe/chain/index.html.md#funcy_pipe.chain.chain_wrap)(func)                       |    |
 
 ## Module Contents
 
@@ -321,105 +306,26 @@ Chain(a).map(lambda n: n + 1).filter(lambda n: n>2).list()
 #### list()
 
 
-# index.html.md
-
-# funcy_pipe.pipe
-
-Adapted from:
-
-[https://github.com/JulienPalard/Pipe/blob/main/pipe.py](https://github.com/JulienPalard/Pipe/blob/main/pipe.py)
-
-## Classes
-
-| [`PipeFirst`](#funcy_pipe.pipe.PipeFirst)   | Takes the input into | and passes to the first argument of the function   |
-|---------------------------------------------|---------------------------------------------------------------------------|
-| [`PipeSecond`](#funcy_pipe.pipe.PipeSecond) | Represent a Pipeable Element:                                             |
-
-## Module Contents
-
-### *class* funcy_pipe.pipe.PipeFirst(function)
-
-Takes the input into | and passes to the first argument of the function
-
-Described as:
->>> first = PipeFirst(lambda iterable: next(iter(iterable)))
-
-and used as:
->>> print([1, 2, 3] | first)
-1
-
-Or represent a Pipeable Function :
-It’s a function returning a Pipe
-Described as :
->>> select = PipeFirst(lambda iterable, pred: (pred(x) for x in iterable))
-
-and used as:
->>> list([1, 2, 3] | select(lambda x: x \* 2))
-[2, 4, 6]
-
-#### function
-
-### *class* funcy_pipe.pipe.PipeSecond(function)
-
-Represent a Pipeable Element:
-Described as:
-
-```pycon
->>> first = PipeSecond(lambda pred, i: next(iter(i)))
-```
-
-and used as :
->>> [1, 2, 3] | first(lambda: True)
-1
-
-Or represent a Pipeable Function:
-It’s a function returning a Pipe
-Described as:
->>> select = PipeSecond(lambda pred, iterable: (pred(x) for x in iterable))
-
-and used as:
->>> list([1, 2, 3] | select(lambda x: x \* 2))
-[2, 4, 6]
-
-#### function
-
-
-# index.html.md
-
-# funcy_pipe.macro
-
-Global is a better term for this file, but you can’t use that as a file name in python :/
-
-## Classes
-
-| [`CallableForwarder`](#funcy_pipe.macro.CallableForwarder)   |    |
-|--------------------------------------------------------------|----|
-
-## Module Contents
-
-### *class* funcy_pipe.macro.CallableForwarder
-
-
-# index.html.md
+# autoapi/funcy_pipe/funcy_extensions/index.html.md
 
 # funcy_pipe.funcy_extensions
 
 ## Functions
 
-| [`where_not`](#funcy_pipe.funcy_extensions.where_not)(mappings, \*\*cond)          | Iterates over mappings containing all pairs not in cond.     |
+| [`where_not`](autoapi/funcy_pipe/funcy_extensions/index.html.md#funcy_pipe.funcy_extensions.where_not)(mappings, \*\*cond)     | Iterates over mappings containing all pairs not in cond.     |
 |------------------------------------------------------------------------------------|--------------------------------------------------------------|
-| [`where_not_attr`](#funcy_pipe.funcy_extensions.where_not_attr)(objects, \*\*cond) |                                                              |
-| [`where_attr`](#funcy_pipe.funcy_extensions.where_attr)(objects, \*\*cond)         |                                                              |
-| [`pluck`](#funcy_pipe.funcy_extensions.pluck)(key, mappings)                       | Iterates over values for key, or multiple keys, in mappings. |
-| [`shuffled`](#funcy_pipe.funcy_extensions.shuffled)(seq)                           |                                                              |
-| [`sample`](#funcy_pipe.funcy_extensions.sample)(seq)                               | Pick a random element from the array                         |
-| [`join_str`](#funcy_pipe.funcy_extensions.join_str)(sep, seq)                      |                                                              |
-| [`sort`](#funcy_pipe.funcy_extensions.sort)(iterable[, key, reverse])              |                                                              |
-| [`reject`](#funcy_pipe.funcy_extensions.reject)(coll, pred)                        |                                                              |
-| [`detect`](#funcy_pipe.funcy_extensions.detect)(mappings, \*\*cond)                | Find the first mapping containing all pairs in cond.         |
-| [`detect_attr`](#funcy_pipe.funcy_extensions.detect_attr)(objects, \*\*cond)       | Find the first object having all attributes matching cond.   |
-| [`dig`](#funcy_pipe.funcy_extensions.dig)(path, data, \*[, default])               | Dig into nested dict using dot-path string or list of keys.  |
-| [`patch`](#funcy_pipe.funcy_extensions.patch)()                                    |                                                              |
+| [`where_not_attr`](autoapi/funcy_pipe/funcy_extensions/index.html.md#funcy_pipe.funcy_extensions.where_not_attr)(objects, \*\*cond) |                                                              |
+| [`where_attr`](autoapi/funcy_pipe/funcy_extensions/index.html.md#funcy_pipe.funcy_extensions.where_attr)(objects, \*\*cond)     |                                                              |
+| [`pluck`](autoapi/funcy_pipe/funcy_extensions/index.html.md#funcy_pipe.funcy_extensions.pluck)(key, mappings)              | Iterates over values for key, or multiple keys, in mappings. |
+| [`shuffled`](autoapi/funcy_pipe/funcy_extensions/index.html.md#funcy_pipe.funcy_extensions.shuffled)(seq)                     |                                                              |
+| [`sample`](autoapi/funcy_pipe/funcy_extensions/index.html.md#funcy_pipe.funcy_extensions.sample)(seq)                       | Pick a random element from the array                         |
+| [`join_str`](autoapi/funcy_pipe/funcy_extensions/index.html.md#funcy_pipe.funcy_extensions.join_str)(sep, seq)                |                                                              |
+| [`sort`](autoapi/funcy_pipe/funcy_extensions/index.html.md#funcy_pipe.funcy_extensions.sort)(iterable[, key, reverse])    |                                                              |
+| [`reject`](autoapi/funcy_pipe/funcy_extensions/index.html.md#funcy_pipe.funcy_extensions.reject)(coll, pred)                |                                                              |
+| [`detect`](autoapi/funcy_pipe/funcy_extensions/index.html.md#funcy_pipe.funcy_extensions.detect)(mappings, \*\*cond)        | Find the first mapping containing all pairs in cond.         |
+| [`detect_attr`](autoapi/funcy_pipe/funcy_extensions/index.html.md#funcy_pipe.funcy_extensions.detect_attr)(objects, \*\*cond)    | Find the first object having all attributes matching cond.   |
+| [`dig`](autoapi/funcy_pipe/funcy_extensions/index.html.md#funcy_pipe.funcy_extensions.dig)(path, data, \*[, default])    | Dig into nested dict using dot-path string or list of keys.  |
+| [`patch`](autoapi/funcy_pipe/funcy_extensions/index.html.md#funcy_pipe.funcy_extensions.patch)()                           |                                                              |
 
 ## Module Contents
 
@@ -476,5 +382,111 @@ KeyError: 'x'
 ```
 
 ### funcy_pipe.funcy_extensions.patch()
+
+
+# autoapi/funcy_pipe/index.html.md
+
+# funcy_pipe
+
+## Submodules
+
+* [funcy_pipe.chain](autoapi/funcy_pipe/chain/index.html.md)
+* [funcy_pipe.funcy_extensions](autoapi/funcy_pipe/funcy_extensions/index.html.md)
+* [funcy_pipe.macro](autoapi/funcy_pipe/macro/index.html.md)
+* [funcy_pipe.pipe](autoapi/funcy_pipe/pipe/index.html.md)
+
+
+# autoapi/funcy_pipe/macro/index.html.md
+
+# funcy_pipe.macro
+
+Global is a better term for this file, but you can’t use that as a file name in python :/
+
+## Classes
+
+| [`CallableForwarder`](autoapi/funcy_pipe/macro/index.html.md#funcy_pipe.macro.CallableForwarder)   |    |
+|----------------------------------------------------------------------|----|
+
+## Module Contents
+
+### *class* funcy_pipe.macro.CallableForwarder
+
+
+# autoapi/funcy_pipe/pipe/index.html.md
+
+# funcy_pipe.pipe
+
+Adapted from:
+
+[https://github.com/JulienPalard/Pipe/blob/main/pipe.py](https://github.com/JulienPalard/Pipe/blob/main/pipe.py)
+
+## Classes
+
+| [`PipeFirst`](autoapi/funcy_pipe/pipe/index.html.md#funcy_pipe.pipe.PipeFirst)   | Takes the input into | and passes to the first argument of the function   |
+|--------------------------------------------------------------|---------------------------------------------------------------------------|
+| [`PipeSecond`](autoapi/funcy_pipe/pipe/index.html.md#funcy_pipe.pipe.PipeSecond)  | Represent a Pipeable Element:                                             |
+
+## Module Contents
+
+### *class* funcy_pipe.pipe.PipeFirst(function)
+
+Takes the input into | and passes to the first argument of the function
+
+Described as:
+>>> first = PipeFirst(lambda iterable: next(iter(iterable)))
+
+and used as:
+>>> print([1, 2, 3] | first)
+1
+
+Or represent a Pipeable Function :
+It’s a function returning a Pipe
+Described as :
+>>> select = PipeFirst(lambda iterable, pred: (pred(x) for x in iterable))
+
+and used as:
+>>> list([1, 2, 3] | select(lambda x: x \* 2))
+[2, 4, 6]
+
+#### function
+
+### *class* funcy_pipe.pipe.PipeSecond(function)
+
+Represent a Pipeable Element:
+Described as:
+
+```pycon
+>>> first = PipeSecond(lambda pred, i: next(iter(i)))
+```
+
+and used as :
+>>> [1, 2, 3] | first(lambda: True)
+1
+
+Or represent a Pipeable Function:
+It’s a function returning a Pipe
+Described as:
+>>> select = PipeSecond(lambda pred, iterable: (pred(x) for x in iterable))
+
+and used as:
+>>> list([1, 2, 3] | select(lambda x: x \* 2))
+[2, 4, 6]
+
+#### function
+
+
+# autoapi/index.html.md
+
+# API Reference
+
+This page contains auto-generated API reference documentation <sup>[1](#f1)</sup>.
+
+* [funcy_pipe](autoapi/funcy_pipe/index.html.md)
+  * [funcy_pipe.chain](autoapi/funcy_pipe/chain/index.html.md)
+  * [funcy_pipe.funcy_extensions](autoapi/funcy_pipe/funcy_extensions/index.html.md)
+  * [funcy_pipe.macro](autoapi/funcy_pipe/macro/index.html.md)
+  * [funcy_pipe.pipe](autoapi/funcy_pipe/pipe/index.html.md)
+
+* <a id='f1'>**[1]**</a> Created with [sphinx-autoapi](https://github.com/readthedocs/sphinx-autoapi)
 
 

@@ -7,14 +7,14 @@
 
 ## Pages
 
-- [Funcy with pipeline-based operators](index.html.md): [![Release Notes](https://img.shields.io/github/release/iloveitaly/funcy-pipe)](https://github.com/i...
-- [API Reference](autoapi/index.html.md): This page contains auto-generated API reference documentation <sup>[1](#f1)</sup>.
-- [funcy_pipe](autoapi/funcy_pipe/index.html.md): * [funcy_pipe.chain](chain/index.md)
-- [funcy_pipe.chain](autoapi/funcy_pipe/chain/index.html.md): Chain(a).map(lambda n: n + 1).filter(lambda n: n>2).list()
-- [funcy_pipe.pipe](autoapi/funcy_pipe/pipe/index.html.md): Adapted from:
+- [Funcy with pipeline-based operators](index.html.md): Release Notes Downloads Python Versions GitHub CI Status Docs License: MIT
+- [funcy_pipe](autoapi/funcy_pipe/index.html.md): &#42; funcy_pipe.chain
+- [funcy_pipe.chain](autoapi/funcy_pipe/chain/index.html.md): Chain(a).map(lambda n: n + 1).filter(lambda n: n&gt;2).list()
+- [funcy_pipe.funcy_extensions](autoapi/funcy_pipe/funcy_extensions/index.html.md): | &#96;where_not&#96;(mappings, &#92;&#42;&#92;&#42;cond)     | Iterates over mappings containing all pairs not in cond.    ...
 - [funcy_pipe.macro](autoapi/funcy_pipe/macro/index.html.md): Global is a better term for this file, but you can’t use that as a file name in python :/
-- [funcy_pipe.funcy_extensions](autoapi/funcy_pipe/funcy_extensions/index.html.md): | [`where_not`](#funcy_pipe.funcy_extensions.where_not)(mappings, \*\*cond)          | Iterates over...
+- [funcy_pipe.pipe](autoapi/funcy_pipe/pipe/index.html.md): Adapted from:
+- [API Reference](autoapi/index.html.md): This page contains auto-generated API reference documentation &lt;sup&gt;1&lt;/sup&gt;.
 
----
+## Optional
 
-For more comprehensive documentation, see [llms-full.txt](llms-full.txt)
+- [llms-full.txt](llms-full.txt): Complete documentation in a single file.

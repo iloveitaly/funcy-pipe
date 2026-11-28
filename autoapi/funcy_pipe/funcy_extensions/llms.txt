@@ -1,0 +1,14 @@
+# funcy-pipe
+
+> funcy-pipe: Funcy methods with Pipe-style operators for chainable Python data transformation.
+
+
+2026, Michael Bianco
+
+## Pages in this subsection
+
+- [funcy_pipe.funcy_extensions](index.html.md): | &#96;where_not&#96;(mappings, &#92;&#42;&#92;&#42;cond)     | Iterates over mappings containing all pairs not in cond.    ...
+
+## Optional
+
+- [Top-level llms.txt](../../../llms.txt): Complete documentation index.

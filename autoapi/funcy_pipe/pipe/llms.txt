@@ -1,0 +1,14 @@
+# funcy-pipe
+
+> funcy-pipe: Funcy methods with Pipe-style operators for chainable Python data transformation.
+
+
+2026, Michael Bianco
+
+## Pages in this subsection
+
+- [funcy_pipe.pipe](index.html.md): Adapted from:
+
+## Optional
+
+- [Top-level llms.txt](../../../llms.txt): Complete documentation index.

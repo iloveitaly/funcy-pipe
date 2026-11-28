@@ -7,8 +7,8 @@ Adapted from:
 ## Classes
 
 | [`PipeFirst`](#funcy_pipe.pipe.PipeFirst)   | Takes the input into | and passes to the first argument of the function   |
-|---------------------------------------------|---------------------------------------------------------------------------|
-| [`PipeSecond`](#funcy_pipe.pipe.PipeSecond) | Represent a Pipeable Element:                                             |
+|--------------------------------------------------------------|---------------------------------------------------------------------------|
+| [`PipeSecond`](#funcy_pipe.pipe.PipeSecond)  | Represent a Pipeable Element:                                             |
 
 ## Module Contents
 

@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=2ceb65ce" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=6a604523" />
     <link media="print" rel="stylesheet" type="text/css" href="_static/print.css?v=20ff2c19" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=168b0b94" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -190,7 +190,7 @@ data transformation options were not chainable.</p>
 </span><span data-line="2">
 </span><span data-line="3"><span class="n">entities_from_sql_alchemy</span>
 </span><span data-line="4">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">lmap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
-</span><span data-line="5">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">lmap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">r</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">omit</span><span class="p">([</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;created_at&quot;</span><span class="p">,</span> <span class="s2">&quot;updated_at&quot;</span><span class="p">]))</span>
+</span><span data-line="5">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">lmap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">r</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">omit</span><span class="p">([</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">"created_at"</span><span class="p">,</span> <span class="s2">"updated_at"</span><span class="p">]))</span>
 </span><span data-line="6">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">to_list</span>
 </span></pre></div>
 </div>
@@ -200,7 +200,7 @@ data transformation options were not chainable.</p>
 </span><span data-line="3">
 </span><span data-line="4"><span class="n">entities_from_sql_alchemy</span>
 </span><span data-line="5">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">lmap</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">to_dict</span><span class="p">)</span>
-</span><span data-line="6">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">omit</span><span class="p">([</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;created_at&quot;</span><span class="p">,</span> <span class="s2">&quot;updated_at&quot;</span><span class="p">]))</span>
+</span><span data-line="6">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">omit</span><span class="p">([</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">"created_at"</span><span class="p">,</span> <span class="s2">"updated_at"</span><span class="p">]))</span>
 </span><span data-line="7">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">to_list</span>
 </span></pre></div>
 </div>
@@ -210,44 +210,37 @@ data transformation options were not chainable.</p>
 </div>
 <p>Grab the ID of a specific user:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">filter_user_id</span> <span class="o">=</span> <span class="p">(</span>
-</span><span data-line="2">  <span class="n">collaborator_map</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-</span><span data-line="3">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">email</span><span class="o">=</span><span class="n">target_user</span><span class="p">)</span>
-</span><span data-line="4">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">pluck</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
-</span><span data-line="5">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+</span><span data-line="2">    <span class="n">collaborator_map</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+</span><span data-line="3">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">email</span><span class="o">=</span><span class="n">target_user</span><span class="p">)</span>
+</span><span data-line="4">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">pluck</span><span class="p">(</span><span class="s2">"id"</span><span class="p">)</span>
+</span><span data-line="5">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
 </span><span data-line="6"><span class="p">)</span>
 </span></pre></div>
 </div>
 <p>Get distinct values from a list (in this case, github events):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">events</span> <span class="o">=</span> <span class="p">[</span>
-</span><span data-line="2">  <span class="p">{</span>
-</span><span data-line="3">    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;PushEvent&quot;</span>
-</span><span data-line="4">  <span class="p">},</span>
-</span><span data-line="5">  <span class="p">{</span>
-</span><span data-line="6">    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CommentEvent&quot;</span>
-</span><span data-line="7">  <span class="p">}</span>
-</span><span data-line="8"><span class="p">]</span>
-</span><span data-line="9">
-</span><span data-line="10"><span class="n">result</span> <span class="o">=</span> <span class="n">events</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">pluck</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
-</span><span data-line="11">
-</span><span data-line="12"><span class="k">assert</span> <span class="p">[</span><span class="s2">&quot;PushEvent&quot;</span><span class="p">,</span> <span class="s2">&quot;CommentEvent&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">result</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">events</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"PushEvent"</span><span class="p">},</span> <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"CommentEvent"</span><span class="p">}]</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">result</span> <span class="o">=</span> <span class="n">events</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">pluck</span><span class="p">(</span><span class="s2">"type"</span><span class="p">)</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="k">assert</span> <span class="p">[</span><span class="s2">"PushEvent"</span><span class="p">,</span> <span class="s2">"CommentEvent"</span><span class="p">]</span> <span class="o">==</span> <span class="n">result</span>
 </span></pre></div>
 </div>
 <p>What if the objects are not dicts?</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">filter_user_id</span> <span class="o">=</span> <span class="p">(</span>
-</span><span data-line="2">  <span class="n">collaborator_map</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-</span><span data-line="3">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">where_attr</span><span class="p">(</span><span class="n">email</span><span class="o">=</span><span class="n">target_user</span><span class="p">)</span>
-</span><span data-line="4">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">pluck_attr</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
-</span><span data-line="5">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+</span><span data-line="2">    <span class="n">collaborator_map</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+</span><span data-line="3">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">where_attr</span><span class="p">(</span><span class="n">email</span><span class="o">=</span><span class="n">target_user</span><span class="p">)</span>
+</span><span data-line="4">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">pluck_attr</span><span class="p">(</span><span class="s2">"id"</span><span class="p">)</span>
+</span><span data-line="5">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
 </span><span data-line="6"><span class="p">)</span>
 </span></pre></div>
 </div>
 <p>How about creating a dict where each value is sorted:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">data</span>
-</span><span data-line="2">  <span class="c1"># each element is a dict of city information, let&#39;s group by state</span>
-</span><span data-line="3">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="n">itemgetter</span><span class="p">(</span><span class="s2">&quot;state_name&quot;</span><span class="p">))</span>
-</span><span data-line="4">  <span class="c1"># now let&#39;s sort each value by population, which is stored as a string</span>
+</span><span data-line="2">  <span class="c1"># each element is a dict of city information, let's group by state</span>
+</span><span data-line="3">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="n">itemgetter</span><span class="p">(</span><span class="s2">"state_name"</span><span class="p">))</span>
+</span><span data-line="4">  <span class="c1"># now let's sort each value by population, which is stored as a string</span>
 </span><span data-line="5">  <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">walk_values</span><span class="p">(</span>
-</span><span data-line="6">    <span class="n">f</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="nb">sorted</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;population&quot;</span><span class="p">])),</span>
+</span><span data-line="6">    <span class="n">f</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="nb">sorted</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s2">"population"</span><span class="p">])),</span>
 </span><span data-line="7">  <span class="p">)</span>
 </span></pre></div>
 </div>
@@ -257,72 +250,90 @@ data transformation options were not chainable.</p>
 </span><span data-line="3">    <span class="n">tasks</span>
 </span><span data-line="4">    <span class="c1"># get all comments for each relevant task</span>
 </span><span data-line="5">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">lmap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">task</span><span class="p">:</span> <span class="n">api</span><span class="o">.</span><span class="n">get_comments</span><span class="p">(</span><span class="n">task_id</span><span class="o">=</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
-</span><span data-line="6">    <span class="c1"># each task&#39;s comments are returned as an array, let&#39;s flatten this</span>
+</span><span data-line="6">    <span class="c1"># each task's comments are returned as an array, let's flatten this</span>
 </span><span data-line="7">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
-</span><span data-line="8">    <span class="c1"># dates are returned as strings, let&#39;s convert them to datetime objects</span>
+</span><span data-line="8">    <span class="c1"># dates are returned as strings, let's convert them to datetime objects</span>
 </span><span data-line="9">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">lmap</span><span class="p">(</span><span class="n">enrich_date</span><span class="p">)</span>
-</span><span data-line="10">    <span class="c1"># no date filter is applied by default, we don&#39;t want all comments</span>
-</span><span data-line="11">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">comment</span><span class="p">:</span> <span class="n">comment</span><span class="p">[</span><span class="s2">&quot;posted_at_date&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">last_synced_date</span><span class="p">)</span>
+</span><span data-line="10">    <span class="c1"># no date filter is applied by default, we don't want all comments</span>
+</span><span data-line="11">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">comment</span><span class="p">:</span> <span class="n">comment</span><span class="p">[</span><span class="s2">"posted_at_date"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">last_synced_date</span><span class="p">)</span>
 </span><span data-line="12">    <span class="c1"># comments do not come with who created the comment by default, we need to hit a separate API to add this to the comment</span>
 </span><span data-line="13">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">lmap</span><span class="p">(</span><span class="n">enrich_comment</span><span class="p">)</span>
 </span><span data-line="14">    <span class="c1"># only select the comments posted by our target user</span>
-</span><span data-line="15">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">comment</span><span class="p">:</span> <span class="n">comment</span><span class="p">[</span><span class="s2">&quot;posted_by_user_id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">filter_user_id</span><span class="p">)</span>
-</span><span data-line="16">    <span class="c1"># there is no `sort` in the funcy library, so we reexport the sort built-in so it&#39;s pipe-able</span>
-</span><span data-line="17">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;posted_at_date&quot;</span><span class="p">)</span>
+</span><span data-line="15">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">comment</span><span class="p">:</span> <span class="n">comment</span><span class="p">[</span><span class="s2">"posted_by_user_id"</span><span class="p">]</span> <span class="o">==</span> <span class="n">filter_user_id</span><span class="p">)</span>
+</span><span data-line="16">    <span class="c1"># there is no `sort` in the funcy library, so we reexport the sort built-in so it's pipe-able</span>
+</span><span data-line="17">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">"posted_at_date"</span><span class="p">)</span>
 </span><span data-line="18">    <span class="c1"># create a dictionary of task_id =&gt; [comments]</span>
-</span><span data-line="19">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="k">lambda</span> <span class="n">comment</span><span class="p">:</span> <span class="n">comment</span><span class="p">[</span><span class="s2">&quot;task_id&quot;</span><span class="p">])</span>
+</span><span data-line="19">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="k">lambda</span> <span class="n">comment</span><span class="p">:</span> <span class="n">comment</span><span class="p">[</span><span class="s2">"task_id"</span><span class="p">])</span>
 </span><span data-line="20"><span class="p">)</span>
 </span></pre></div>
 </div>
 <p>Want to grab the values of a list of dict keys?</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">def</span><span class="w"> </span><span class="nf">add_field_name</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">keys</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-</span><span data-line="2">    <span class="k">return</span> <span class="nb">input</span> <span class="o">|</span> <span class="p">{</span>
-</span><span data-line="3">        <span class="s2">&quot;field_name&quot;</span><span class="p">:</span> <span class="p">(</span>
-</span><span data-line="4">            <span class="n">keys</span>
-</span><span data-line="5">            <span class="c1"># this is a sneaky trick: if we reference the objects method, when it&#39;s called it will contain a reference</span>
-</span><span data-line="6">            <span class="c1"># to the object</span>
-</span><span data-line="7">            <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
-</span><span data-line="8">            <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">compact</span>
-</span><span data-line="9">            <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">join_str</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span>
-</span><span data-line="10">        <span class="p">)</span>
-</span><span data-line="11">    <span class="p">}</span>
-</span><span data-line="12">
-</span><span data-line="13"><span class="n">result</span> <span class="o">=</span> <span class="p">[{</span> <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span> <span class="s2">&quot;header&quot;</span><span class="p">:</span> <span class="s2">&quot;functional&quot;</span><span class="p">}]</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">rpartial</span><span class="p">(</span><span class="n">add_field_name</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="s2">&quot;header&quot;</span><span class="p">]))</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">to_list</span>
-</span><span data-line="14"><span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="p">[{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="s1">&#39;python&#39;</span><span class="p">,</span> <span class="s1">&#39;header&#39;</span><span class="p">:</span> <span class="s1">&#39;functional&#39;</span><span class="p">,</span> <span class="s1">&#39;field_name&#39;</span><span class="p">:</span> <span class="s1">&#39;python_functional&#39;</span><span class="p">}]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">def</span><span class="w"> </span><span class="nf">add_field_name</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
+</span><span data-line="2">    <span class="k">return</span> <span class="p">{</span>
+</span><span data-line="3">        <span class="o">**</span><span class="nb">input</span><span class="p">,</span>
+</span><span data-line="4">        <span class="s2">"field_name"</span><span class="p">:</span> <span class="p">(</span>
+</span><span data-line="5">            <span class="n">keys</span>
+</span><span data-line="6">            <span class="c1"># this is a sneaky trick: if we reference the objects method, when it's called it will contain a reference</span>
+</span><span data-line="7">            <span class="c1"># to the object</span>
+</span><span data-line="8">            <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+</span><span data-line="9">            <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">compact</span>
+</span><span data-line="10">            <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">join_str</span><span class="p">(</span><span class="s2">"_"</span><span class="p">)</span>
+</span><span data-line="11">        <span class="p">),</span>
+</span><span data-line="12">    <span class="p">}</span>
+</span><span data-line="13">
+</span><span data-line="14">
+</span><span data-line="15"><span class="n">result</span> <span class="o">=</span> <span class="p">(</span>
+</span><span data-line="16">    <span class="p">[{</span><span class="s2">"category"</span><span class="p">:</span> <span class="s2">"python"</span><span class="p">,</span> <span class="s2">"header"</span><span class="p">:</span> <span class="s2">"functional"</span><span class="p">}]</span>
+</span><span data-line="17">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">rpartial</span><span class="p">(</span><span class="n">add_field_name</span><span class="p">,</span> <span class="p">[</span><span class="s2">"category"</span><span class="p">,</span> <span class="s2">"header"</span><span class="p">]))</span>
+</span><span data-line="18">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">to_list</span>
+</span><span data-line="19"><span class="p">)</span>
+</span><span data-line="20"><span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="p">[</span>
+</span><span data-line="21">    <span class="p">{</span><span class="s2">"category"</span><span class="p">:</span> <span class="s2">"python"</span><span class="p">,</span> <span class="s2">"header"</span><span class="p">:</span> <span class="s2">"functional"</span><span class="p">,</span> <span class="s2">"field_name"</span><span class="p">:</span> <span class="s2">"python_functional"</span><span class="p">}</span>
+</span><span data-line="22"><span class="p">]</span>
 </span></pre></div>
 </div>
 <p>You can also easily test multiple conditions across API data (<a class="reference external" href="https://github.com/iloveitaly/github-overlord/blob/a3c0e5d0765b3748747e6721e602c0021be0c8e1/github_overlord/__init__.py#L66-L71">extracted from this project</a>)</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">all_checks_successful</span> <span class="o">=</span> <span class="p">(</span>
 </span><span data-line="2">    <span class="n">last_commit</span><span class="o">.</span><span class="n">get_check_runs</span><span class="p">()</span>
-</span><span data-line="3">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">pluck_attr</span><span class="p">(</span><span class="s2">&quot;conclusion&quot;</span><span class="p">)</span>
+</span><span data-line="3">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">pluck_attr</span><span class="p">(</span><span class="s2">"conclusion"</span><span class="p">)</span>
 </span><span data-line="4">    <span class="c1"># if you pass a set into `all` each element of the set is used to build a predicate</span>
-</span><span data-line="5">    <span class="c1"># this condition tests if the &quot;conclusion&quot; attribute is either &quot;success&quot; or &quot;skipped&quot;</span>
-</span><span data-line="6">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">all</span><span class="p">({</span><span class="s2">&quot;success&quot;</span><span class="p">,</span> <span class="s2">&quot;skipped&quot;</span><span class="p">})</span>
+</span><span data-line="5">    <span class="c1"># this condition tests if the "conclusion" attribute is either "success" or "skipped"</span>
+</span><span data-line="6">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">all</span><span class="p">({</span><span class="s2">"success"</span><span class="p">,</span> <span class="s2">"skipped"</span><span class="p">})</span>
 </span><span data-line="7"><span class="p">)</span>
 </span></pre></div>
 </div>
 <p>Want to grab the values of a list of dict keys?</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">def</span><span class="w"> </span><span class="nf">add_field_name</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">keys</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-</span><span data-line="2">    <span class="k">return</span> <span class="nb">input</span> <span class="o">|</span> <span class="p">{</span>
-</span><span data-line="3">        <span class="s2">&quot;field_name&quot;</span><span class="p">:</span> <span class="p">(</span>
-</span><span data-line="4">            <span class="n">keys</span>
-</span><span data-line="5">            <span class="c1"># this is a sneaky trick: if we reference the objects method, when it&#39;s called it will contain a reference</span>
-</span><span data-line="6">            <span class="c1"># to the object</span>
-</span><span data-line="7">            <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
-</span><span data-line="8">            <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">compact</span>
-</span><span data-line="9">            <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">join_str</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span>
-</span><span data-line="10">        <span class="p">)</span>
-</span><span data-line="11">    <span class="p">}</span>
-</span><span data-line="12">
-</span><span data-line="13"><span class="n">result</span> <span class="o">=</span> <span class="p">[{</span> <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span> <span class="s2">&quot;header&quot;</span><span class="p">:</span> <span class="s2">&quot;functional&quot;</span><span class="p">}]</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">rpartial</span><span class="p">(</span><span class="n">add_field_name</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="s2">&quot;header&quot;</span><span class="p">]))</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">to_list</span>
-</span><span data-line="14"><span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="p">[{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="s1">&#39;python&#39;</span><span class="p">,</span> <span class="s1">&#39;header&#39;</span><span class="p">:</span> <span class="s1">&#39;functional&#39;</span><span class="p">,</span> <span class="s1">&#39;field_name&#39;</span><span class="p">:</span> <span class="s1">&#39;python_functional&#39;</span><span class="p">}]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">def</span><span class="w"> </span><span class="nf">add_field_name</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
+</span><span data-line="2">    <span class="k">return</span> <span class="p">{</span>
+</span><span data-line="3">        <span class="o">**</span><span class="nb">input</span><span class="p">,</span>
+</span><span data-line="4">        <span class="s2">"field_name"</span><span class="p">:</span> <span class="p">(</span>
+</span><span data-line="5">            <span class="n">keys</span>
+</span><span data-line="6">            <span class="c1"># this is a sneaky trick: if we reference the objects method, when it's called it will contain a reference</span>
+</span><span data-line="7">            <span class="c1"># to the object</span>
+</span><span data-line="8">            <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+</span><span data-line="9">            <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">compact</span>
+</span><span data-line="10">            <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">join_str</span><span class="p">(</span><span class="s2">"_"</span><span class="p">)</span>
+</span><span data-line="11">        <span class="p">),</span>
+</span><span data-line="12">    <span class="p">}</span>
+</span><span data-line="13">
+</span><span data-line="14">
+</span><span data-line="15"><span class="n">result</span> <span class="o">=</span> <span class="p">(</span>
+</span><span data-line="16">    <span class="p">[{</span><span class="s2">"category"</span><span class="p">:</span> <span class="s2">"python"</span><span class="p">,</span> <span class="s2">"header"</span><span class="p">:</span> <span class="s2">"functional"</span><span class="p">}]</span>
+</span><span data-line="17">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">rpartial</span><span class="p">(</span><span class="n">add_field_name</span><span class="p">,</span> <span class="p">[</span><span class="s2">"category"</span><span class="p">,</span> <span class="s2">"header"</span><span class="p">]))</span>
+</span><span data-line="18">    <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">to_list</span>
+</span><span data-line="19"><span class="p">)</span>
+</span><span data-line="20"><span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="p">[</span>
+</span><span data-line="21">    <span class="p">{</span><span class="s2">"category"</span><span class="p">:</span> <span class="s2">"python"</span><span class="p">,</span> <span class="s2">"header"</span><span class="p">:</span> <span class="s2">"functional"</span><span class="p">,</span> <span class="s2">"field_name"</span><span class="p">:</span> <span class="s2">"python_functional"</span><span class="p">}</span>
+</span><span data-line="22"><span class="p">]</span>
 </span></pre></div>
 </div>
 <p>You can also easily group dictionaries by a key (or arbitrary function):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">operator</span>
 </span><span data-line="2">
-</span><span data-line="3"><span class="n">result</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">}]</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">))</span>
-</span><span data-line="4"><span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="p">{</span><span class="mi">10</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Alice&#39;</span><span class="p">}],</span> <span class="mi">12</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Bob&#39;</span><span class="p">}]}</span>
+</span><span data-line="3"><span class="n">result</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">"age"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Alice"</span><span class="p">},</span> <span class="p">{</span><span class="s2">"age"</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Bob"</span><span class="p">}]</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span>
+</span><span data-line="4">    <span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="s2">"age"</span><span class="p">)</span>
+</span><span data-line="5"><span class="p">)</span>
+</span><span data-line="6"><span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="p">{</span><span class="mi">10</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"age"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Alice"</span><span class="p">}],</span> <span class="mi">12</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"age"</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Bob"</span><span class="p">}]}</span>
 </span></pre></div>
 </div>
 </section>
@@ -342,19 +353,20 @@ data transformation options were not chainable.</p>
 <h2>Extensions<a class="headerlink" href="#extensions" title="Link to this heading">#</a></h2>
 <p>There <a class="reference internal" href="#funcy_pipe/funcy_extensions.py"><span class="xref myst">are some functions</span></a> which are not yet merged upstream into funcy, and may never be. You can patch <code class="docutils literal notranslate"><span class="pre">funcy</span></code> to add them using:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">funcy_pipe</span>
-</span><span data-line="2"><span class="n">funcy_pipe</span><span class="o">.</span><span class="n">patch</span><span class="p">()</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">funcy_pipe</span><span class="o">.</span><span class="n">patch</span><span class="p">()</span>
 </span></pre></div>
 </div>
 <p>Find the first element matching a condition (detect):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">users</span> <span class="o">=</span> <span class="p">[</span>
-</span><span data-line="2">    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s2">&quot;city&quot;</span><span class="p">:</span> <span class="s2">&quot;NYC&quot;</span><span class="p">},</span>
-</span><span data-line="3">    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;city&quot;</span><span class="p">:</span> <span class="s2">&quot;SF&quot;</span><span class="p">},</span>
-</span><span data-line="4">    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Charlie&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s2">&quot;city&quot;</span><span class="p">:</span> <span class="s2">&quot;LA&quot;</span><span class="p">}</span>
+</span><span data-line="2">    <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Alice"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s2">"city"</span><span class="p">:</span> <span class="s2">"NYC"</span><span class="p">},</span>
+</span><span data-line="3">    <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Bob"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">"city"</span><span class="p">:</span> <span class="s2">"SF"</span><span class="p">},</span>
+</span><span data-line="4">    <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Charlie"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s2">"city"</span><span class="p">:</span> <span class="s2">"LA"</span><span class="p">},</span>
 </span><span data-line="5"><span class="p">]</span>
 </span><span data-line="6">
 </span><span data-line="7"><span class="c1"># Find first user aged 25</span>
 </span><span data-line="8"><span class="n">first_young_user</span> <span class="o">=</span> <span class="n">users</span> <span class="o">|</span> <span class="n">fp</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
-</span><span data-line="9"><span class="k">assert</span> <span class="n">first_young_user</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s2">&quot;city&quot;</span><span class="p">:</span> <span class="s2">&quot;NYC&quot;</span><span class="p">}</span>
+</span><span data-line="9"><span class="k">assert</span> <span class="n">first_young_user</span> <span class="o">==</span> <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Alice"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s2">"city"</span><span class="p">:</span> <span class="s2">"NYC"</span><span class="p">}</span>
 </span></pre></div>
 </div>
 </section>
@@ -449,6 +461,6 @@ data transformation options were not chainable.</p>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=f281be69"></script>
-      <script src="_static/design-tabs.js?v=f930bc37"></script>
+      <script data-sd-tabs-storage-prefix="sphinx-design-tab-id-" src="_static/design-tabs.js?v=fcb327ea"></script>
       <script src="_static/shibuya.js?v=50760d75"></script></body>
 </html>
